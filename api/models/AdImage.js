@@ -1,18 +1,19 @@
 const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  class Manufacturer extends Model { }
+  class AdImage extends Model { }
   
-  Manufacturer.init(
+  AdImage.init(
     {
       id: DataTypes.INTEGER,
-      name: DataTypes.STRING,
+      adId: DataTypes.INTEGER,
+      path: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: "Manufacturer",
+      modelName: "AdImage",
     },
   );
 
-  return Manufacturer;
+  return AdImage;
 };

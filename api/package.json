@@ -2,8 +2,10 @@
   "name": "musiclassified",
   "version": "1.0.0",
   "main": "app.js",
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
+    "dotenv": "^16.0.3",
+    "mysql2": "^3.0.1",
+    "sequelize": "^6.28.0"
   }
 }

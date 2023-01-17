@@ -1,18 +1,19 @@
 const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  class Manufacturer extends Model { }
+  class InstrumentModel extends Model { }
   
-  Manufacturer.init(
+  InstrumentModel.init(
     {
       id: DataTypes.INTEGER,
+      manufacturerId: DataTypes.INTEGER,
       name: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: "Manufacturer",
+      modelName: "InstrumentModel",
     },
   );
 
-  return Manufacturer;
+  return InstrumentModel;
 };
