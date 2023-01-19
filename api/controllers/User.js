@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("../helpers/jwt");
+const { Op } = require('sequelize');
 
 async function register(req, res) {
   const { email, password, phoneNumber } = req.body;
