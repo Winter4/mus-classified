@@ -1,6 +1,8 @@
 require("dotenv").config();
 
 const express = require("express");
+require('express-async-errors');
+
 const cors = require("cors");
 const { sequelize } = require("./models");
 const errorHandler = require("./middleware/errorHandler");
