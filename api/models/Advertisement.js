@@ -3,9 +3,9 @@ const { Model, DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   class Advertisement extends Model { 
     static associate({ User, Category, InstrumentModel, AdImage }) {
-      this.belongsTo(User, { foreignKey: "userId" });
-      this.belongsTo(Category, { foreignKey: "categoryId" });
-      this.belongsTo(InstrumentModel, { foreignKey: "modelId" });
+      this.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
+      this.belongsTo(Category, { foreignKey: "categoryId", onDelete: "SET NULL" });
+      this.belongsTo(InstrumentModel, { foreignKey: "modelId", onDelete: "SET NULL" });
       this.hasMany(AdImage, { foreignKey: "adId", onDelete: "CASCADE" });
     }
   }

@@ -2,8 +2,9 @@ const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   class InstrumentModel extends Model { 
-    static associate({ Manufacturer }) {
-      this.belongsTo(Manufacturer, { foreignKey: "manufacturerId" });
+    static associate({ Manufacturer, Advertisement }) {
+      this.belongsTo(Manufacturer, { foreignKey: "manufacturerId", onDelete: "CASCADE" });
+      this.hasMany(Advertisement, { foreignKey: "modelId", onDelete: "SET NULL" });
     }
   }
   
