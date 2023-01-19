@@ -1,14 +1,18 @@
 const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  class User extends Model { }
+  class User extends Model { 
+    static associate({ Advertisement }) {
+      this.hasMany(Advertisement, { foreignKey: "userId", onDelete: "CASCADE" });
+    }
+  }
   
   User.init(
     {
-      id: DataTypes.INTEGER,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      phoneNumber: DataTypes.STRING,
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      email: { type: DataTypes.STRING, allowNull: false },
+      password: { type: DataTypes.STRING, allowNull: false },
+      phoneNumber: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,

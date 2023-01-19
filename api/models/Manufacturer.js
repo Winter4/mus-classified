@@ -1,12 +1,16 @@
 const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  class Manufacturer extends Model { }
+  class Manufacturer extends Model { 
+    static associate({ InstrumentModel }) {
+      this.hasMany(InstrumentModel, { foreignKey: "manufacturerId", onDelete: "CASCADE" });
+    }
+  }
   
   Manufacturer.init(
     {
-      id: DataTypes.INTEGER,
-      name: DataTypes.STRING,
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      name: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,

@@ -1,12 +1,16 @@
 const { Model, DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  class Category extends Model { }
+  class Category extends Model { 
+    static associate({ Advertisement }) {
+      this.hasMany(Advertisement, { foreignKey: "categoryId" });
+    }
+  }
   
   Category.init(
     {
-      id: DataTypes.INTEGER,
-      name: DataTypes.STRING,
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      name: { type: DataTypes.STRING, allowNull: false },
     },
     {
       sequelize,
