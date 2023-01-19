@@ -27,7 +27,7 @@ async function register(req, res) {
 }
 
 async function authorize(req, res) {
-  const { email, password, phoneNumber } = req.body;
+  let { email, password, phoneNumber } = req.body;
 
   email = email || null;
   phoneNumber = phoneNumber || null;
