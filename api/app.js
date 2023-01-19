@@ -5,7 +5,7 @@ require('express-async-errors');
 
 const cors = require("cors");
 const { sequelize } = require("./models");
-const router = require("./router");
+const router = require("./routes");
 
 const app = express();
 app.use(cors());
