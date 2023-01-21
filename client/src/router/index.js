@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@/layouts/MainLayout.vue';
 
-import MainView from '@/views/MainView';
+import MainView from '@/views/MainView.vue';
 
 const routes = [
   {
