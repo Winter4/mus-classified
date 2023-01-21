@@ -28,19 +28,16 @@ async function register(req, res) {
 }
 
 async function authorize(req, res) {
-  let { email, password, phoneNumber } = req.body;
+  let { username, password } = req.body;
 
-  email = email || null;
-  phoneNumber = phoneNumber || null;
-
-  if (!email && !phoneNumber) return res.status(400).json({ error: "Both email and phone number cannot be empty" });
+  if (!username) return res.status(400).json({ error: "Username cannot be empty" });
   if (!password) return res.status(400).json({ error: "Password cannot be empty" });
   
   let user = await User.findOne({
     where: {
       [Op.or]: [
-        { email },
-        { phoneNumber }
+        { email: username },
+        { phoneNumber: username }
       ]
     }
   });
