@@ -16,6 +16,7 @@ router.post("/users/authorize", userController.authorize);
 router.post("/images/upload", imageController.upload);
 
 router.post("/ads/add", advertisementController.add);
+router.get("/ads/getAll", advertisementController.getAll);
 
 router.all("*", (req, res) => {
   res.status(404).json({ error: 404 })
