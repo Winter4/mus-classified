@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
   try {
     let { id } = jwt.verify(token);
 
-    const user = User.findOne({ where: { id } });
+    const user = await User.findOne({ where: { id } });
     if (!user) return res.status(401).json({ error: "User not found" });
   
     req.currentUser = user;
