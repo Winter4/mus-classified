@@ -8,7 +8,7 @@
 
         <div v-if="userStore.user && userStore.user.token" class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            <img src="@/assets/img/user.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
             <li><a @click="exit" class="dropdown-item" href="#">Выход</a></li>
