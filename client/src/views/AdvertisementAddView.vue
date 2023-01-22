@@ -88,6 +88,7 @@
 
 <script>
 import apiRequest from '@/helpers/apiRequest';
+import router from '@/router';
 
 export default {
   setup() {
@@ -151,12 +152,8 @@ export default {
       })
       .then(async (response) => {
         if (response.ok == true) {
-          alert('Объявление успешно создано!');
+          router.push({ name: 'main' });
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        let a = 1;
       });
     }
   }
