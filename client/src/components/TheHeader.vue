@@ -1,23 +1,33 @@
 <template>
   <header class="p-3 mb-3 border-bottom">
     <div class="container-lg">
-      <div class="d-flex flex-wrap align-items-center justify-content-between">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <span calss="fs-1 fw-bold fst-italic">Трунь!</span>
-        </a>
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="col-4"></div>
 
-        <div v-if="userStore.user && userStore.user.token" class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="@/assets/img/user.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+        <div class="col-4 d-flex align-items-center justify-content-center">
+          <a href="/" class="text-dark text-decoration-none">
+            <span class="fs-3 fw-bold fst-italic">Трунь!</span>
           </a>
-          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
-            <li><a @click="exit" class="dropdown-item" href="#">Выход</a></li>
-          </ul>
         </div>
-        <ul v-else class="nav">
-          <li class="nav-item"><a href="#" class="nav-link link-dark px-2" data-bs-toggle="modal" data-bs-target="#modalAuth">Вход</a></li>
-          <li class="nav-item"><a href="#" class="nav-link link-dark px-2" data-bs-toggle="modal" data-bs-target="#modalReg">Регистрация</a></li>
-        </ul>
+
+        <div class="col-4 d-flex align-items-center justify-content-end">
+          <template v-if="userStore.user && userStore.user.token">
+            <ul class="nav d-flex align-items-center">
+              <li class="nav-item"><button type="button" class="btn btn-sm btn-primary">Добавить объявление!</button></li>
+              <li class="nav-item"><a @click="exit" href="#" class="nav-link link-dark px-2 py-0">Выход</a></li>
+            </ul>
+          </template>
+          <template v-else>
+            <ul class="nav">
+              <li class="nav-item">
+                <button type="button" class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#modalAuth">Вход</button>
+              </li>
+              <li class="nav-item">
+                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalReg">Регистрация</button>
+              </li>
+            </ul>
+          </template>
+        </div>
       </div>
     </div>
   </header>
