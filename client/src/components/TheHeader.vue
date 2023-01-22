@@ -5,15 +5,19 @@
         <div class="col-4"></div>
 
         <div class="col-4 d-flex align-items-center justify-content-center">
-          <a href="/" class="text-dark text-decoration-none">
+          <RouterLink :to="{ name: 'main' }" class="text-dark text-decoration-none">
             <span class="fs-3 fw-bold fst-italic">Трунь!</span>
-          </a>
+          </RouterLink>
         </div>
 
         <div class="col-4 d-flex align-items-center justify-content-end">
           <template v-if="userStore.user && userStore.user.token">
             <ul class="nav d-flex align-items-center">
-              <li class="nav-item"><button type="button" class="btn btn-sm btn-primary">Добавить объявление!</button></li>
+              <li class="nav-item">
+                <RouterLink :to="{ name: 'advertisementAdd' }" class="btn btn-sm btn-primary">
+                  Добавить объявление!
+                </RouterLink>
+              </li>
               <li class="nav-item"><a @click="exit" href="#" class="nav-link link-dark px-2 py-0">Выход</a></li>
             </ul>
           </template>
@@ -41,6 +45,8 @@
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
+
 import TheHeaderModalAuth from '@/components/TheHeaderModalAuth.vue';
 import TheHeaderModalReg from '@/components/TheHeaderModalReg.vue';
 
@@ -48,6 +54,7 @@ import { useUserStore } from "@/stores/user";
 
 export default {
   components: {
+    RouterLink,
     TheHeaderModalAuth,
     TheHeaderModalReg,
   },
@@ -64,5 +71,3 @@ export default {
   }
 }
 </script>
-
-
