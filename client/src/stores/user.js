@@ -61,7 +61,7 @@ export const useUserStore = defineStore("user", {
     exit() {
       this.user = null;
       localStorage.removeItem('user');
-      router.push('/');
+      router.push({ name: 'main' });
     }
   },
 });
