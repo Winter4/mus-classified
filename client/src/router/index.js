@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import MainLayout from '@/layouts/MainLayout.vue';
 
 import MainView from '@/views/MainView.vue';
+import AdvertisementAddView from '@/views/AdvertisementAddView.vue';
 
 const routes = [
   {
@@ -11,12 +12,22 @@ const routes = [
     children: [
       {
         path: '/',
+        name: 'main',
         component: MainView,
         meta: { 
-          requiresAuth: true,
-          title: 'Трунь - Музыкальные инструменты',
+          requiresAuth: false,
+          title: 'Трунь - Музыкальные инструменты!',
         }
-      }
+      },
+      {
+        path: '/add',
+        name: 'advertisementAdd',
+        component: AdvertisementAddView,
+        meta: { 
+          requiresAuth: true,
+          title: 'Трунь - Добавить объявление!',
+        }
+      },
     ]
   }
 ];
