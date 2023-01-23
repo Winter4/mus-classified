@@ -1,4 +1,4 @@
-const { Advertisement, Image } = require("../models");
+const { Advertisement, Image, User } = require("../models");
 
 async function add(req, res) {
   const { headline, description, price, category, model, images } = req.body;
@@ -54,7 +54,13 @@ async function get(req, res) {
       {
         model: Image,
         through: { attributes: [] }
-      }
+      },
+      {
+        model: User,
+        attributes: {
+          exclude: ['password']
+        }
+      },
     ]
   });
 
