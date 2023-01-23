@@ -43,7 +43,28 @@ async function getAll(req, res) {
   res.status(200).json(ads);
 }
 
+async function get(req, res) {
+  let { id } = req.query;
+
+  if (!id) return res.status(400).json({ error: "Id cannot be empty" });
+
+  let ad = await Advertisement.findOne({
+    where: { id },
+    include: [
+      {
+        model: Image,
+        through: { attributes: [] }
+      }
+    ]
+  });
+
+  if (!ad) return res.status(404).json({ error: "Incorrect id" });
+
+  res.status(200).json(ad);
+}
+
 module.exports = {
   add,
-  getAll
+  getAll,
+  get
 }
