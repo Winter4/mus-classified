@@ -22,9 +22,16 @@ async function register(req, res) {
     phoneNumber: phoneNumber,
   });
 
-  const token = jwt.sign(user.id);
+  user = await User.findOne({
+    where: { id: user.id },
+    attributes: {
+      exclude: ['password']
+    }
+  });
 
-  return res.status(200).json({ token: token });
+  user.token = jwt.sign(user.id);
+
+  return res.status(200).json(user);
 }
 
 async function authorize(req, res) {
@@ -39,12 +46,15 @@ async function authorize(req, res) {
         { email: username },
         { phoneNumber: username }
       ]
+    },
+    attributes: {
+      exclude: ['password']
     }
   });
 
   if (user) {
-    const token = jwt.sign(user.id);
-    return res.status(200).json({ token: token });
+    user.token = jwt.sign(user.id);
+    return res.status(200).json(user);
   }
   else {
     return res.status(401).json({ error: "Incorrect credentials" });
