@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useUserStore } from "@/stores/user";
 
 import MainLayout from '@/layouts/MainLayout.vue';
 
@@ -46,6 +47,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to) => {
+  const userStore = useUserStore();
+
+  const authorized = userStore.user && userStore.user.token;
+
+  if (to.meta.requiresAuth && !authorized) {
+    return { name: 'main' }
+  }
+
+  return true;
 });
 
 export default router;
