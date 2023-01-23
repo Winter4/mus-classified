@@ -14,7 +14,6 @@ export const useAdvertisementsStore = defineStore("advertisements", {
       );
 
       this.ads = await response.json();
-      let a = 1;
     },
   },
 });
