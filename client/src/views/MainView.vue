@@ -6,7 +6,7 @@
         v-for="ad in advertisements"
         class="col-3"
       >
-        <div class="card">
+        <div class="card mb-4">
           <img :src="imageBaseUrl + ad.Images[0].path" class="card-img-top">
           <div class="card-body">
             <h6 class="card-title">

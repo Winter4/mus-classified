@@ -10,11 +10,11 @@
     </div>
     <div class="row mb-4">
       <div class="col-8">
-        <div class="card card-body">
+        <div class="card card-body pb-0">
           <div class="row d-flex">
             <div 
               v-for="image in advertisement.Images"
-              class="col-6"
+              class="col-6 mb-3"
             >
               <div 
                 class="card card-image card-body card-buttons flex-row justify-content-center align-items-center"
