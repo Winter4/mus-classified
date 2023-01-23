@@ -9,7 +9,11 @@
         <div class="card">
           <img :src="imageBaseUrl + ad.Images[0].path" class="card-img-top">
           <div class="card-body">
-            <h6 class="card-title">{{ ad.headline }}</h6>
+            <h6 class="card-title">
+              <RouterLink :to="{ name: 'advertisement', params: { id: ad.id } }" class="text-dark text-decoration-none stretched-link">
+                {{ ad.headline }}
+              </RouterLink>
+            </h6>
             <h6 class="card-subtitle text-muted">{{ ad.price }}₽</h6>
           </div>
         </div>
