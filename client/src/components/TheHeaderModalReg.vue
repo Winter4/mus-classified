@@ -8,6 +8,14 @@
       <div class="modal-body">
         <form @submit.prevent="register">
           <div class="form-floating">
+            <input v-model="name" type="text" class="form-control" id="inputRegName" placeholder="Иван Иванов" required>
+            <label for="inputRegName">Ваше имя</label>
+          </div>
+          <div class="form-floating">
+            <input v-model="city" type="text" class="form-control" id="inputRegCity" placeholder="name@example.com" required>
+            <label for="inputRegCity">Ваш город</label>
+          </div>
+          <div class="form-floating">
             <input v-model="email" type="email" class="form-control" id="inputRegEmail" placeholder="name@example.com" required>
             <label for="inputRegEmail">Email</label>
           </div>
@@ -43,11 +51,13 @@ export default {
       email: '',
       phoneNumber: '',
       password: '',
+      name: '',
+      city: '',
     };
   },
   methods: {
     async register() {
-      const res = await this.userStore.register(this.email, this.phoneNumber, this.password);
+      const res = await this.userStore.register(this.email, this.phoneNumber, this.password, this.name, this.city);
       if (res) {
         const modalReg = Modal.getInstance(document.getElementById('modalReg'));
         modalReg.hide();
@@ -62,13 +72,13 @@ export default {
   padding: 30px;
 }
 
-#inputRegEmail {
+#inputRegName {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-#inputRegPhone {
+#inputRegCity, #inputRegEmail, #inputRegPhone {
   margin-top: -1px;
   margin-bottom: -1px;
   border-radius: 0;

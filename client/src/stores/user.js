@@ -9,13 +9,13 @@ export const useUserStore = defineStore("user", {
   }),
 
   actions: {
-    async register(email, phoneNumber, password) {
+    async register(email, phoneNumber, password, name, city) {
       const res = await fetch(`${baseUrl}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, phoneNumber, password }),
+        body: JSON.stringify({ email, phoneNumber, password, name, city }),
       });
       
       if (res.ok != true) {
