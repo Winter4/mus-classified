@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
   Image.init(
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-      path: { type: DataTypes.STRING, allowNull: false },
+      path: { type: DataTypes.STRING(100), allowNull: false },
     },
     {
       sequelize,

@@ -11,10 +11,10 @@ module.exports = (sequelize) => {
     {
       id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
       email: { type: DataTypes.STRING, allowNull: false },
-      password: { type: DataTypes.STRING, allowNull: false },
-      phoneNumber: { type: DataTypes.STRING, allowNull: false },
-      name: { type: DataTypes.STRING, allowNull: false },
-      city: { type: DataTypes.STRING, allowNull: false },
+      password: { type: DataTypes.STRING(60), allowNull: false },
+      phoneNumber: { type: DataTypes.STRING(30), allowNull: false },
+      name: { type: DataTypes.STRING(100), allowNull: false },
+      city: { type: DataTypes.STRING(50), allowNull: false },
     },
     {
       sequelize,
