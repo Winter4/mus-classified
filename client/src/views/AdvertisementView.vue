@@ -28,7 +28,7 @@
       <div class="col-4">
         <ul v-if="adLoaded" class="list-group mb-3">
           <li class="list-group-item">
-            <h5 class="my-0">{{ advertisement.User.name }}</h5>
+            <h5 class="my-0">{{ advertisement.User.firstName }} {{ advertisement.User.lastName }}</h5>
             <small class="text-muted">Продавец</small>
           </li>
           <li class="list-group-item">

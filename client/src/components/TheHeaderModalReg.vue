@@ -8,8 +8,12 @@
       <div class="modal-body">
         <form @submit.prevent="register">
           <div class="form-floating">
-            <input v-model="name" type="text" class="form-control" id="inputRegName" placeholder="Иван Иванов" required>
-            <label for="inputRegName">Ваше имя</label>
+            <input v-model="firstName" type="text" class="form-control" id="inputRegFirstName" placeholder="Иван" required>
+            <label for="inputRegFirstName">Ваше имя</label>
+          </div>
+          <div class="form-floating">
+            <input v-model="lastName" type="text" class="form-control" id="inputRegLastName" placeholder="Иванов" required>
+            <label for="inputRegLastName">Ваша фамилия</label>
           </div>
           <div class="form-floating">
             <input v-model="city" type="text" class="form-control" id="inputRegCity" placeholder="name@example.com" required>
@@ -51,13 +55,14 @@ export default {
       email: '',
       phoneNumber: '',
       password: '',
-      name: '',
+      firstName: '',
+      lastName: '',
       city: '',
     };
   },
   methods: {
     async register() {
-      const res = await this.userStore.register(this.email, this.phoneNumber, this.password, this.name, this.city);
+      const res = await this.userStore.register(this.email, this.phoneNumber, this.password, this.firstName, this.lastName, this.city);
       if (res) {
         const modalReg = Modal.getInstance(document.getElementById('modalReg'));
         modalReg.hide();
@@ -72,13 +77,13 @@ export default {
   padding: 30px;
 }
 
-#inputRegName {
+#inputRegFirstName {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-#inputRegCity, #inputRegEmail, #inputRegPhone {
+#inputRegLastName, #inputRegCity, #inputRegEmail, #inputRegPhone {
   margin-top: -1px;
   margin-bottom: -1px;
   border-radius: 0;
