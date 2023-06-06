@@ -2,6 +2,7 @@ const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("../helpers/jwt");
 const { Op } = require('sequelize');
+const userRoles = require('../helpers/userRoles');
 
 async function register(req, res) {
   const { email, password, phoneNumber, firstName, lastName, city } = req.body;
@@ -25,7 +26,8 @@ async function register(req, res) {
     phoneNumber,
     firstName,
     lastName,
-    city
+    city,
+    role: userRoles.USER
   });
 
   user = await User.findOne({

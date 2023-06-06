@@ -16,6 +16,7 @@ module.exports = (sequelize) => {
       firstName: { type: DataTypes.STRING(100), allowNull: false },
       lastName: { type: DataTypes.STRING(100), allowNull: false },
       city: { type: DataTypes.STRING(50), allowNull: false },
+      role: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       sequelize,
