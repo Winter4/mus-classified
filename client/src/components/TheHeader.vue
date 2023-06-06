@@ -18,7 +18,11 @@
                   Добавить объявление!
                 </RouterLink>
               </li>
-              <li class="nav-item"><a @click="exit" href="#" class="nav-link link-dark px-2 py-0">Выход</a></li>
+              <li class="nav-item">
+                <RouterLink :to="{ name: 'personalArea' }" class="nav-link link-dark px-2 py-0">
+                  Личный кабинет
+                </RouterLink>
+              </li>
             </ul>
           </template>
           <template v-else>
@@ -63,11 +67,6 @@ export default {
     return { 
       userStore 
     };
-  },
-  methods: {
-    exit() {
-      this.userStore.exit();
-    }
   }
 }
 </script>
