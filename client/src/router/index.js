@@ -154,4 +154,9 @@ router.beforeEach((to) => {
   return true;
 });
 
+const DEFAULT_TITLE = 'Трунь!';
+router.afterEach((to, from) => {
+  document.title = to.meta.title || DEFAULT_TITLE;
+});
+
 export default router;
