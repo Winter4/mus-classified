@@ -14,15 +14,19 @@ const router = express.Router();
 
 router.use(authenticate);
 
+// пользователи
 router.post("/users/register", userController.register);
 router.post("/users/authorize", userController.authorize);
 
+// изображения
 router.post("/images/upload", requiresAuth, imageController.upload);
 
+// объявления
 router.post("/ads/add", requiresAuth, advertisementController.add);
 router.get("/ads/getAll", advertisementController.getAll);
 router.get("/ads/get", advertisementController.get);
 
+// категории
 router.get("/category/getAll", [requiresAuth, requiresAdmin], categoryController.getAll);
 router.post("/category/add", [requiresAuth, requiresAdmin], categoryController.add);
 router.delete("/category/remove", [requiresAuth, requiresAdmin], categoryController.remove);
