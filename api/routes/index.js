@@ -9,6 +9,7 @@ const userController = require("../controllers/User");
 const imageController = require("../controllers/Image");
 const advertisementController = require("../controllers/Advertisement");
 const categoryController = require("../controllers/Category");
+const manufacturerController = require("../controllers/Manufacturer");
 
 const router = express.Router();
 
@@ -30,6 +31,11 @@ router.get("/ads/get", advertisementController.get);
 router.get("/category/getAll", [requiresAuth, requiresAdmin], categoryController.getAll);
 router.post("/category/add", [requiresAuth, requiresAdmin], categoryController.add);
 router.delete("/category/remove", [requiresAuth, requiresAdmin], categoryController.remove);
+
+// производители
+router.get("/manufacturer/getAll", [requiresAuth, requiresAdmin], manufacturerController.getAll);
+router.post("/manufacturer/add", [requiresAuth, requiresAdmin], manufacturerController.add);
+router.delete("/manufacturer/remove", [requiresAuth, requiresAdmin], manufacturerController.remove);
 
 router.all("*", (req, res) => {
   res.status(404).json({ error: 404 })
