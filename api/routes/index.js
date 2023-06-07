@@ -10,6 +10,7 @@ const imageController = require("../controllers/Image");
 const advertisementController = require("../controllers/Advertisement");
 const categoryController = require("../controllers/Category");
 const manufacturerController = require("../controllers/Manufacturer");
+const instrumentModelController = require("../controllers/InstrumentModel");
 
 const router = express.Router();
 
@@ -36,6 +37,11 @@ router.delete("/category/remove", [requiresAuth, requiresAdmin], categoryControl
 router.get("/manufacturer/getAll", [requiresAuth, requiresAdmin], manufacturerController.getAll);
 router.post("/manufacturer/add", [requiresAuth, requiresAdmin], manufacturerController.add);
 router.delete("/manufacturer/remove", [requiresAuth, requiresAdmin], manufacturerController.remove);
+
+// модели инструментов
+router.get("/model/getAll", [requiresAuth, requiresAdmin], instrumentModelController.getAll);
+router.post("/model/add", [requiresAuth, requiresAdmin], instrumentModelController.add);
+router.delete("/model/remove", [requiresAuth, requiresAdmin], instrumentModelController.remove);
 
 router.all("*", (req, res) => {
   res.status(404).json({ error: 404 })
