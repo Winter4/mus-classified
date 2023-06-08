@@ -61,28 +61,6 @@ const routes = [
             }
           },
           {
-            path: '/personal/moders',
-            name: 'personalModers',
-            component: () => import('@/views/PersonalModers.vue'), 
-            props: true,
-            meta: { 
-              requiresAuth: true,
-              userRole: userRoles.ADMIN,
-              title: 'Трунь - Модераторы',
-            }
-          },
-          {
-            path: '/personal/experts',
-            name: 'personalExperts',
-            component: () => import('@/views/PersonalExperts.vue'), 
-            props: true,
-            meta: { 
-              requiresAuth: true,
-              userRole: userRoles.ADMIN,
-              title: 'Трунь - Эксперты',
-            }
-          },
-          {
             path: '/personal/categories',
             name: 'personalCategories',
             component: () => import('@/views/PersonalCategories.vue'), 
@@ -113,6 +91,17 @@ const routes = [
               requiresAuth: true,
               userRole: userRoles.ADMIN,
               title: 'Трунь - Модели инструментов',
+            }
+          },
+          {
+            path: '/personal/users',
+            name: 'personalUsers',
+            component: () => import('@/views/PersonalUsers.vue'), 
+            props: true,
+            meta: { 
+              requiresAuth: true,
+              userRole: userRoles.ADMIN,
+              title: 'Трунь - Пользователи',
             }
           },
           {

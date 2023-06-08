@@ -18,16 +18,6 @@
 
           <template v-else-if="userStore?.user?.role == userRoles.ADMIN">
             <li class="nav-item w-100 mb-2">
-              <RouterLink :to="{ name: 'personalModers' }" class="btn btn-sm btn-outline-primary w-100">
-                Модераторы
-              </RouterLink>
-            </li>
-            <li class="nav-item w-100 mb-2">
-              <RouterLink :to="{ name: 'personalExperts' }" class="btn btn-sm btn-outline-primary w-100">
-                Эксперты
-              </RouterLink>
-            </li>
-            <li class="nav-item w-100 mb-2">
               <RouterLink :to="{ name: 'personalCategories' }" class="btn btn-sm btn-outline-primary w-100">
                 Категории
               </RouterLink>
@@ -40,6 +30,11 @@
             <li class="nav-item w-100 mb-2">
               <RouterLink :to="{ name: 'personalModels' }" class="btn btn-sm btn-outline-primary w-100">
                 Модели
+              </RouterLink>
+            </li>
+            <li class="nav-item w-100 mb-2">
+              <RouterLink :to="{ name: 'personalUsers' }" class="btn btn-sm btn-outline-primary w-100">
+                Пользователи
               </RouterLink>
             </li>
           </template>
