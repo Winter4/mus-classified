@@ -71,6 +71,10 @@ async function authorize(req, res) {
   }
 }
 
+async function getSelf(req, res) {
+  res.status(200).json(req.currentUser);
+}
+
 async function getAll(req, res) {
   let { offset, count, role } = req.query;
 
@@ -109,6 +113,34 @@ async function editAdmin(req, res) {
   res.status(200).json();
 }
 
+async function editSelf(req, res) {
+  let { firstName, lastName, email, phoneNumber, city, oldPass, newPass, repeatPass } = req.body;
+
+  let values = {};
+  if (firstName) values.firstName = firstName;
+  if (lastName) values.lastName = lastName;
+  if (email) values.email = email;
+  if (phoneNumber) values.phoneNumber = phoneNumber;
+  if (city) values.city = city;
+
+  if (oldPass?.length && newPass?.length && repeatPass?.length) {
+    if (await bcrypt.compare(oldPass, req.currentUser.password)) {
+      if (newPass == repeatPass) values.password = await bcrypt.hash(newPass, 10);
+      else return res.status(400).json({ error: "Passwords doesn't match" });
+    }
+    else {
+      return res.status(401).json({ error: "Incorrect password" });
+    }
+  }
+
+  if (Object.keys(values).length == 0) return res.status(400).json({ error: "You must specify at least one value" });
+
+  await req.currentUser.update(values);
+  await req.currentUser.save();
+  
+  res.status(200).json();
+}
+
 async function removeAdmin(req, res) {
   const { id } = req.body;
 
@@ -126,7 +158,9 @@ async function removeAdmin(req, res) {
 module.exports = {
   register,
   authorize,
+  getSelf,
   getAll,
   editAdmin,
+  editSelf,
   removeAdmin
 }

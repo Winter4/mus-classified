@@ -65,6 +65,17 @@ export const useUserStore = defineStore("user", {
       localStorage.removeItem('user');
       router.push({ name: 'main' });
     },
+    async getSelf() {
+      let response = await apiRequest(
+        "/users/getSelf", 
+        { method: 'GET', }
+      );
+
+      let user = await response.json();
+      user.token = this.user.token;
+      this.user = user;
+      localStorage.setItem('user', JSON.stringify(user));
+    },
     async getAll(offset = 0, count = 20, role = -1) {
       let response = await apiRequest(
         "/users/getAll?" + new URLSearchParams({ offset, count, role }), 
@@ -84,6 +95,16 @@ export const useUserStore = defineStore("user", {
           body: JSON.stringify({ id, role }),
         }
       );
+    },
+    async editSelf(values) {
+      return await fetch(`${baseUrl}/users/editSelf`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${this.user.token}`,
+        },
+        body: JSON.stringify(values),
+      });
     },
     async removeAdmin(id) {
       await apiRequest(
