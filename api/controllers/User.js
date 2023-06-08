@@ -71,7 +71,62 @@ async function authorize(req, res) {
   }
 }
 
+async function getAll(req, res) {
+  let { offset, count, role } = req.query;
+
+  offset = Number(offset) || 0;
+  count = Number(count) || 20;
+
+  let where = {};
+  if (role != -1) where.role = role;
+
+  let users = await User.findAll({
+    where,
+    offset: offset,
+    limit: count,
+  });
+
+  res.status(200).json(users);
+}
+
+async function editAdmin(req, res) {
+  let { id, role } = req.body;
+
+  if (!id) return res.status(400).json({ error: "Id cannot be empty" });
+
+  let values = {};
+  if (role != null && role != undefined) values.role = role;
+
+  await User.update(
+    values,
+    {
+      where: {
+        id,
+      }
+    }
+  );
+
+  res.status(200);
+}
+
+async function removeAdmin(req, res) {
+  const { id } = req.body;
+
+  if (!id) return res.status(400).json({ error: "Id cannot be empty" });
+
+  await User.destroy({
+    where: {
+      id: id,
+    }
+  });
+
+  res.status(200);
+}
+
 module.exports = {
   register,
   authorize,
+  getAll,
+  editAdmin,
+  removeAdmin
 }

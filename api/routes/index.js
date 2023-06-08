@@ -19,6 +19,9 @@ router.use(authenticate);
 // пользователи
 router.post("/users/register", userController.register);
 router.post("/users/authorize", userController.authorize);
+router.get("/users/getAll", [requiresAuth, requiresAdmin], userController.getAll);
+router.post("/users/editAdmin", [requiresAuth, requiresAdmin], userController.editAdmin);
+router.delete("/users/removeAdmin", [requiresAuth, requiresAdmin], userController.removeAdmin);
 
 // изображения
 router.post("/images/upload", requiresAuth, imageController.upload);
