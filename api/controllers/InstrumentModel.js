@@ -48,7 +48,7 @@ async function remove(req, res) {
     }
   });
 
-  res.status(200);
+  res.status(200).json();
 }
 
 module.exports = {

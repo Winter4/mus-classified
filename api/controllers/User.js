@@ -106,7 +106,7 @@ async function editAdmin(req, res) {
     }
   );
 
-  res.status(200);
+  res.status(200).json();
 }
 
 async function removeAdmin(req, res) {
@@ -120,7 +120,7 @@ async function removeAdmin(req, res) {
     }
   });
 
-  res.status(200);
+  res.status(200).json();
 }
 
 module.exports = {
