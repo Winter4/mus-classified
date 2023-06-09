@@ -5,12 +5,12 @@ import userRoles from "@/helpers/userRoles";
 const routes = [
   {
     path: '/',
-    component: () => import('@/layouts/MainLayout.vue'),
+    component: () => import('@/layouts/Main.vue'),
     children: [
       {
         path: '/',
         name: 'main',
-        component: () => import('@/views/MainView.vue'),
+        component: () => import('@/views/Main.vue'),
         meta: { 
           requiresAuth: false,
           title: 'Трунь - Музыкальные инструменты!',
@@ -19,7 +19,7 @@ const routes = [
       {
         path: '/add',
         name: 'advertisementAdd',
-        component: () => import('@/views/AdvertisementAddView.vue'),
+        component: () => import('@/views/AdvertisementAdd.vue'),
         meta: { 
           requiresAuth: true,
           title: 'Трунь - Добавить объявление!',
@@ -28,7 +28,7 @@ const routes = [
       {
         path: '/advertisement/:id',
         name: 'advertisement',
-        component: () => import('@/views/AdvertisementView.vue'), 
+        component: () => import('@/views/Advertisement.vue'), 
         props: true,
         meta: { 
           requiresAuth: false,
@@ -37,7 +37,7 @@ const routes = [
       },
       {
         path: '/personal',
-        component: () => import('@/layouts/PersonalAreaLayout.vue'), 
+        component: () => import('@/layouts/PersonalArea.vue'), 
         children: [
           {
             path: '/personal',
