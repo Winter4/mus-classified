@@ -56,7 +56,7 @@ export default {
 
 <style>
 .card-img-wrapper {
-  height: 350px;
+  height: 300px;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
