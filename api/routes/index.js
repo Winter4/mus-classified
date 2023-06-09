@@ -33,6 +33,7 @@ router.post("/ads/add", requiresAuth, advertisementController.add);
 router.get("/ads/getAll", advertisementController.getAll);
 router.get("/ads/getMy", requiresAuth, advertisementController.getMy);
 router.get("/ads/get", advertisementController.get);
+router.delete("/ads/remove", advertisementController.remove);
 
 // категории
 router.get("/category/getAll", categoryController.getAll);

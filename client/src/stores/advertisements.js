@@ -37,6 +37,18 @@ export const useAdvertisementsStore = defineStore("advertisements", {
         let ad = await response.json();
         router.push({ name: 'advertisement', params: { id: ad.id} });
       }
-    }
+    },
+    async remove(id) {
+      await apiRequest(
+        "/ads/remove",
+        { 
+          method: 'DELETE', 
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id }),
+        }
+      );
+    },
   },
 });

@@ -92,9 +92,25 @@ async function get(req, res) {
   res.status(200).json(ad);
 }
 
+async function remove(req, res) {
+  let { id } = req.body;
+
+  if (!id) return res.status(400).json({ error: "Id cannot be empty" });
+
+  await Advertisement.destroy({
+    where: {
+      id: id,
+      userId: req.currentUser.id,
+    }
+  });
+
+  res.status(200).json();
+}
+
 module.exports = {
   add,
   getAll,
   getMy,
-  get
+  get,
+  remove
 }
