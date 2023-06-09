@@ -50,7 +50,7 @@
             <div class="row d-flex">
               <div 
                 v-for="image in uploadedImages"
-                class="col-3 mb-3"
+                class="col-2 mb-3"
               >
                 <div 
                   class="card card-image card-body card-buttons flex-row justify-content-center align-items-center"
@@ -58,11 +58,11 @@
                 >
                 </div>
               </div>
-              <div class="col-3 mb-3">
+              <div class="col-2 mb-3">
                 <div 
                   @click="startUploadImage()" 
                   class="uploadImageButton card card-image card-body card-buttons flex-row justify-content-center align-items-center">
-                  <i class="fa-solid fa-plus fs-1"></i>
+                  <i class="fa-solid fa-plus fs-3"></i>
                 </div>
               </div>
             </div>
