@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="col-4">
-        <ul v-if="adLoaded" class="list-group mb-3">
+        <ul v-if="advertisement?.User" class="list-group mb-3">
           <li class="list-group-item">
             <h5 class="my-0">{{ advertisement.User.firstName }} {{ advertisement.User.lastName }}</h5>
             <small class="text-muted">Продавец</small>
@@ -67,7 +67,6 @@ export default {
   },
   data() {
     return {
-      adLoaded: false,
     }
   },
   computed: {
@@ -77,9 +76,6 @@ export default {
   },
   created() {
     this.advertisementsStore.get(this.id)
-    .then(() => { 
-      this.adLoaded = true; 
-    });
   },
 }
 </script>
