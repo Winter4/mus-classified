@@ -16,6 +16,14 @@ export const useAdvertisementsStore = defineStore("advertisements", {
 
       this.ads = await response.json();
     },
+    async getMy(offset = 0, count = 20) {
+      let response = await apiRequest(
+        "/ads/getMy?" + new URLSearchParams({ offset, count }), 
+        { method: 'GET', }
+      );
+
+      this.ads = await response.json();
+    },
     async add(headline, description, price, categoryId, modelId, images) {
       let response = await apiRequest("/ads/add", {
         method: 'POST',

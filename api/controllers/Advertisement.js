@@ -43,6 +43,29 @@ async function getAll(req, res) {
   res.status(200).json(ads);
 }
 
+async function getMy(req, res) {
+  let { offset, count } = req.query;
+
+  offset = Number(offset) || 0;
+  count = Number(count) || 20;
+
+  let ads = await Advertisement.findAll({
+    where: {
+      userId: req.currentUser.id
+    },
+    include: [
+      {
+        model: Image,
+        through: { attributes: [] }
+      }
+    ],
+    offset: offset,
+    limit: count,
+  });
+
+  res.status(200).json(ads);
+}
+
 async function get(req, res) {
   let { id } = req.query;
 
@@ -72,5 +95,6 @@ async function get(req, res) {
 module.exports = {
   add,
   getAll,
+  getMy,
   get
 }
