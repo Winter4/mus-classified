@@ -16,13 +16,13 @@ export const useAdvertisementsStore = defineStore("advertisements", {
 
       this.ads = await response.json();
     },
-    async add(headline, description, price, category, model, images) {
+    async add(headline, description, price, categoryId, modelId, images) {
       let response = await apiRequest("/ads/add", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ headline, description, price, category, model, images }),
+        body: JSON.stringify({ headline, description, price, categoryId, modelId, images }),
       })
       
       if (response.ok == true) {

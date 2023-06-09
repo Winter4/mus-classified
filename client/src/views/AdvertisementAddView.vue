@@ -171,7 +171,7 @@ export default {
     },
     addAdvertisement() {
       let images = this.uploadedImages.map(image => image.id);
-      this.advertisementsStore.add(this.headline, this.description, this.price, this.category, this.model, images);
+      this.advertisementsStore.add(this.headline, this.description, this.price, this.categoryId, this.modelId, images);
     }
   }
 }
