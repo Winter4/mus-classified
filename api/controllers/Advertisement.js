@@ -1,4 +1,4 @@
-const { Advertisement, Image, User } = require("../models");
+const { Advertisement, Image, User, InstrumentModel } = require("../models");
 
 async function add(req, res) {
   const { headline, description, price, categoryId, modelId, images } = req.body;
@@ -19,6 +19,35 @@ async function add(req, res) {
   });
 
   if (images.length) ad.setImages(images);
+
+  res.status(200).json(ad);
+}
+
+async function edit(req, res) {
+  const { id, headline, description, price, categoryId, modelId, images } = req.body;
+
+  if (!id) return res.status(400).json({ error: "Id cannot be empty" });
+  if (!headline) return res.status(400).json({ error: "Headline cannot be empty" });
+  if (!description) return res.status(400).json({ error: "Description cannot be empty" });
+  if (!price) return res.status(400).json({ error: "Price number cannot be empty" });
+  if (!categoryId) return res.status(400).json({ error: "Category number cannot be empty" });
+  if (!modelId) return res.status(400).json({ error: "Model number cannot be empty" });
+
+  let ad = await Advertisement.findByPk(id);
+
+  if (!ad) return res.status(400).json({ error: "Incorrect id" });
+
+  await ad.update({
+    headline,
+    description,
+    price,
+    categoryId,
+    modelId,
+  });
+
+  if (images.length) ad.setImages(images);
+
+  await ad.save();
 
   res.status(200).json(ad);
 }
@@ -75,6 +104,9 @@ async function get(req, res) {
     where: { id },
     include: [
       {
+        model: InstrumentModel,
+      },
+      {
         model: Image,
         through: { attributes: [] }
       },
@@ -109,6 +141,7 @@ async function remove(req, res) {
 
 module.exports = {
   add,
+  edit,
   getAll,
   getMy,
   get,

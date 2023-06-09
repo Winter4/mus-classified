@@ -44,7 +44,21 @@ export const useAdvertisementsStore = defineStore("advertisements", {
       
       if (response.ok == true) {
         let ad = await response.json();
-        router.push({ name: 'advertisement', params: { id: ad.id} });
+        router.push({ name: 'advertisement', params: { id: ad.id } });
+      }
+    },
+    async edit(id, headline, description, price, categoryId, modelId, images) {
+      let response = await apiRequest("/ads/edit", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, headline, description, price, categoryId, modelId, images }),
+      })
+      
+      if (response.ok == true) {
+        let ad = await response.json();
+        router.push({ name: 'advertisement', params: { id: ad.id } });
       }
     },
     async remove(id) {

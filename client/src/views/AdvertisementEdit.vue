@@ -1,6 +1,6 @@
 <template>
   <div class="container-lg">
-    <form @submit.prevent="addAdvertisement">
+    <form @submit.prevent="editAdvertisement">
       <div class="row mb-4">
         <div class="col-6">
           <div class="form-floating">
@@ -50,18 +50,21 @@
             <div class="row d-flex">
               <div 
                 v-for="image in uploadedImages"
-                class="col-3 mb-3"
+                class="col-2 mb-3"
               >
                 <div 
-                  class="card card-image card-body card-buttons flex-row justify-content-center align-items-center"
+                  class="card card-image card-body flex-row justify-content-center align-items-center"
                   :style="{ 'background-image': 'url(' + imageBaseUrl + image.path + ')' }"
                 >
+                  <div class="remove-image justify-content-center align-items-center" @click="removeImage(image.id)">
+                    <i class="fa-solid fa-xmark fs-1"></i>
+                  </div>
                 </div>
               </div>
-              <div class="col-3 mb-3">
+              <div class="col-2 mb-3">
                 <div 
                   @click="startUploadImage()" 
-                  class="uploadImageButton card card-image card-body card-buttons flex-row justify-content-center align-items-center">
+                  class="uploadImageButton card card-image card-body flex-row justify-content-center align-items-center">
                   <i class="fa-solid fa-plus fs-1"></i>
                 </div>
               </div>
@@ -87,7 +90,7 @@
           </div>
         </div>
         <div class="col-6">
-          <button type="submit" class="btn btn-primary btn-lg w-100 h-100">Поехали!</button>
+          <button type="submit" class="btn btn-primary btn-lg w-100 h-100">Сохранить</button>
         </div>
       </div>
     </form>
@@ -102,6 +105,7 @@ import { useAdvertisementsStore } from "@/stores/advertisements";
 import { useImagesStore } from "@/stores/images";
 
 export default {
+  props: ['id'],
   setup() {
     let сategoriesStore = useCategoriesStore();
     сategoriesStore.getAll();
@@ -133,6 +137,17 @@ export default {
       price: 0,
     }
   },
+  async created() {
+    await this.advertisementsStore.get(this.id);
+
+    this.headline = this.advertisement.headline;
+    this.categoryId = this.advertisement.categoryId;
+    this.manufacturerId = this.advertisement.InstrumentModel.manufacturerId;
+    this.modelId = this.advertisement.modelId;
+    this.uploadedImages = this.advertisement.Images,
+    this.description = this.advertisement.description;
+    this.price = this.advertisement.price;
+  },
   computed: {
     categories() {
       return this.сategoriesStore.categories;
@@ -142,7 +157,10 @@ export default {
     },
     models() {
       return this.modelsStore.models;
-    }
+    },
+    advertisement() {
+      return this.advertisementsStore.ad;
+    },
   },
   watch: {
     categories(val) {
@@ -169,9 +187,14 @@ export default {
         if (data) this.uploadedImages.push(data);
       }
     },
-    addAdvertisement() {
+    removeImage(id) {
+      if (confirm("Вы действительно хотите удалить это изображение?")) {
+        this.uploadedImages = this.uploadedImages.filter(img => img.id != id);
+      }
+    },
+    editAdvertisement() {
       let images = this.uploadedImages.map(image => image.id);
-      this.advertisementsStore.add(this.headline, this.description, this.price, this.categoryId, this.modelId, images);
+      this.advertisementsStore.edit(this.id, this.headline, this.description, this.price, this.categoryId, this.modelId, images);
     }
   }
 }
@@ -193,5 +216,19 @@ export default {
 }
 .uploadImageButton {
   cursor: pointer;
+}
+
+.remove-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  display: none;
+  cursor: pointer;
+}
+.card-image:hover .remove-image {
+  display: flex;
 }
 </style>
