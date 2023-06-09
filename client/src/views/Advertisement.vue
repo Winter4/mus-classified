@@ -53,15 +53,15 @@
 </template>
 
 <script>
-import { useAdvertisementStore } from "@/stores/advertisement";
+import { useAdvertisementsStore } from "@/stores/advertisements";
 
 export default {
   props: ['id'],
   setup() {
-    let advertisementStore = useAdvertisementStore();
+    let advertisementsStore = useAdvertisementsStore();
 
     return { 
-      advertisementStore,
+      advertisementsStore,
       imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
     }
   },
@@ -72,11 +72,11 @@ export default {
   },
   computed: {
     advertisement() {
-      return this.advertisementStore.ad;
+      return this.advertisementsStore.ad;
     },
   },
   created() {
-    this.advertisementStore.loadAd(this.id)
+    this.advertisementsStore.get(this.id)
     .then(() => { 
       this.adLoaded = true; 
     });

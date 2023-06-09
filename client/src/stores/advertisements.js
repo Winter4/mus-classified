@@ -4,10 +4,19 @@ import router from '@/router';
 
 export const useAdvertisementsStore = defineStore("advertisements", {
   state: () => ({
+    ad: {},
     ads: [],
   }),
 
   actions: {
+    async get(id) {
+      let response = await apiRequest(
+        "/ads/get?" + new URLSearchParams({ id }), 
+        { method: 'GET', }
+      );
+
+      this.ad = await response.json();
+    },
     async getAll(offset = 0, count = 20) {
       let response = await apiRequest(
         "/ads/getAll?" + new URLSearchParams({ offset, count }), 
