@@ -162,10 +162,10 @@ export default {
     startUploadImage() {
       this.$refs.uploadImageField.click();
     },
-    onImageFieldChange(event) {
+    async onImageFieldChange(event) {
       if (event?.target?.files) {
         let image = event.target.files[0];
-        let data = this.imagesStore.upload(image);
+        let data = await this.imagesStore.upload(image);
         if (data) this.uploadedImages.push(data);
       }
     },
