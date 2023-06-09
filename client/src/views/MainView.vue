@@ -9,7 +9,7 @@
         <div class="card mb-4">
           <div 
             class="card-img-wrapper"
-            :style="{ 'background-image': `url(${imageBaseUrl + ad.Images[0].path})`}"
+            :style="{ 'background-image': ad.Images?.[0] ? `url(${imageBaseUrl + ad.Images[0].path})` : 'none' }"
             >
           </div>
           <div class="card-body">
