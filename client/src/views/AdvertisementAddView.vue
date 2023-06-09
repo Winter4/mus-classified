@@ -12,7 +12,7 @@
           <div class="form-floating">
             <select v-model="categoryId" class="form-select" id="inputAdAddCategory">
               <template v-if="categories.length">
-                <option v-for="(item, index) in categories" :key="item.id" :value="item.id">
+                <option v-for="item in categories" :key="item.id" :value="item.id">
                   {{ item.name }}
                 </option>
               </template>
@@ -45,12 +45,12 @@
       </div>
       <div class="row mb-4">
         <div class="col-12">
-          <div class="card card-body">
+          <div class="card card-body pb-0">
             <h6 class="mb-3">Фотографии товара</h6>
             <div class="row d-flex">
               <div 
                 v-for="image in uploadedImages"
-                class="col-3"
+                class="col-3 mb-3"
               >
                 <div 
                   class="card card-image card-body card-buttons flex-row justify-content-center align-items-center"
@@ -58,7 +58,7 @@
                 >
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-3 mb-3">
                 <div 
                   @click="startUploadImage()" 
                   class="uploadImageButton card card-image card-body card-buttons flex-row justify-content-center align-items-center">
