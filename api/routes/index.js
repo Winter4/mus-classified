@@ -34,17 +34,17 @@ router.get("/ads/getAll", advertisementController.getAll);
 router.get("/ads/get", advertisementController.get);
 
 // категории
-router.get("/category/getAll", [requiresAuth, requiresAdmin], categoryController.getAll);
+router.get("/category/getAll", categoryController.getAll);
 router.post("/category/add", [requiresAuth, requiresAdmin], categoryController.add);
 router.delete("/category/remove", [requiresAuth, requiresAdmin], categoryController.remove);
 
 // производители
-router.get("/manufacturer/getAll", [requiresAuth, requiresAdmin], manufacturerController.getAll);
+router.get("/manufacturer/getAll", manufacturerController.getAll);
 router.post("/manufacturer/add", [requiresAuth, requiresAdmin], manufacturerController.add);
 router.delete("/manufacturer/remove", [requiresAuth, requiresAdmin], manufacturerController.remove);
 
 // модели инструментов
-router.get("/model/getAll", [requiresAuth, requiresAdmin], instrumentModelController.getAll);
+router.get("/model/getAll", instrumentModelController.getAll);
 router.post("/model/add", [requiresAuth, requiresAdmin], instrumentModelController.add);
 router.delete("/model/remove", [requiresAuth, requiresAdmin], instrumentModelController.remove);
 
