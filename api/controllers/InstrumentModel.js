@@ -1,20 +1,19 @@
 const { Manufacturer, InstrumentModel } = require("../models");
 
 async function getAll(req, res) {
-  let { offset, count } = req.query;
+  let { offset, count, manufacturerId } = req.query;
 
-  offset = Number(offset) || 0;
-  count = Number(count) || 20;
+  let where = {};
+  if (manufacturerId != 0) where.manufacturerId = manufacturerId;
 
   let mans = await InstrumentModel.findAll({
+    where,
     include: [
       {
         model: Manufacturer,
         // through: { attributes: [] }
       }
-    ],
-    offset: offset,
-    limit: count,
+    ]
   });
 
   res.status(200).json(mans);

@@ -10,8 +10,12 @@
         </div>
         <div class="col-6">
           <div class="form-floating">
-            <select v-model="category" class="form-select" id="inputAdAddCategory">
-              <option value="1">Электрогитара</option>
+            <select v-model="categoryId" class="form-select" id="inputAdAddCategory">
+              <template v-if="categories.length">
+                <option v-for="(item, index) in categories" :key="item.id" :value="item.id">
+                  {{ item.name }}
+                </option>
+              </template>
             </select>
             <label for="inputAdAddCategory">Категория</label>
           </div>
@@ -20,16 +24,20 @@
       <div class="row mb-4">
         <div class="col-6">
           <div class="form-floating">
-            <select v-model="manufacturer" class="form-select" id="inputAdAddManufacturer">
-              <option value="1">Gibson</option>
+            <select v-model="manufacturerId" class="form-select" id="inputAdAddManufacturer">
+              <template v-if="manufacturers.length">
+                <option v-for="item in manufacturers" :key="item.id" :value="item.id">{{ item.name }}</option>
+              </template>
             </select>
             <label for="inputAdAddManufacturer">Производитель</label>
           </div>
         </div>
         <div class="col-6">
           <div class="form-floating">
-            <select v-model="model" class="form-select" id="inputAdAddModel">
-              <option value="1">Les Paul Custom</option>
+            <select v-model="modelId" class="form-select" id="inputAdAddModel">
+              <template v-if="models.length">
+                <option v-for="item in models" :key="item.id" :value="item.id">{{ item.name }}</option>
+              </template>
             </select>
             <label for="inputAdAddModel">Модель</label>
           </div>
@@ -87,6 +95,7 @@
 </template>
 
 <script>
+import { useCategoriesStore } from "@/stores/categories";
 import { useManufacturersStore } from "@/stores/manufacturers";
 import { useModelsStore } from "@/stores/models";
 import { useAdvertisementsStore } from "@/stores/advertisements";
@@ -94,13 +103,18 @@ import { useImagesStore } from "@/stores/images";
 
 export default {
   setup() {
+    let сategoriesStore = useCategoriesStore();
+    сategoriesStore.getAll();
+
     let manufacturersStore = useManufacturersStore();
     manufacturersStore.getAll();
+
     let modelsStore = useModelsStore();
     let advertisementsStore = useAdvertisementsStore();
     let imagesStore = useImagesStore();
 
     return { 
+      сategoriesStore,
       manufacturersStore,
       modelsStore,
       advertisementsStore,
@@ -111,13 +125,38 @@ export default {
   data() {
     return {
       headline: '',
-      category: 0,
-      manufacturer: 0,
-      model: 0,
+      categoryId: 0,
+      manufacturerId: 0,
+      modelId: 0,
       uploadedImages: [],
       description: '',
       price: 0,
     }
+  },
+  computed: {
+    categories() {
+      return this.сategoriesStore.categories;
+    },
+    manufacturers() {
+      return this.manufacturersStore.manufacturers;
+    },
+    models() {
+      return this.modelsStore.models;
+    }
+  },
+  watch: {
+    categories(val) {
+      this.categoryId = val.length ? val[0].id : 0;
+    },
+    manufacturers(val) {
+      this.manufacturerId = val.length ? val[0].id : 0;
+    },
+    models(val) {
+      this.modelId = val.length ? val[0].id : 0;
+    },
+    manufacturerId(val) {
+      this.modelsStore.getAll(val);
+    },
   },
   methods: {
     startUploadImage() {
