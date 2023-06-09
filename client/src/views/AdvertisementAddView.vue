@@ -87,11 +87,10 @@
 </template>
 
 <script>
-import apiRequest from '@/helpers/apiRequest';
-
 import { useManufacturersStore } from "@/stores/manufacturers";
 import { useModelsStore } from "@/stores/models";
 import { useAdvertisementsStore } from "@/stores/advertisements";
+import { useImagesStore } from "@/stores/images";
 
 export default {
   setup() {
@@ -99,11 +98,13 @@ export default {
     manufacturersStore.getAll();
     let modelsStore = useModelsStore();
     let advertisementsStore = useAdvertisementsStore();
+    let imagesStore = useImagesStore();
 
     return { 
       manufacturersStore,
       modelsStore,
       advertisementsStore,
+      imagesStore,
       imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
     }
   },
@@ -123,21 +124,10 @@ export default {
       this.$refs.uploadImageField.click();
     },
     onImageFieldChange(event) {
-      if (event.target && event.target.files) {
+      if (event?.target?.files) {
         let image = event.target.files[0];
-
-        var data = new FormData();
-        data.append('image', image);
-
-        apiRequest("/images/upload", {
-          method: 'POST',
-          body: data
-        }).then(async (response) => {
-          if (response.ok == true) {
-            let data = await response.json();
-            this.uploadedImages.push(data);
-          }
-        });
+        let data = this.imagesStore.upload(image);
+        if (data) this.uploadedImages.push(data);
       }
     },
     addAdvertisement() {
