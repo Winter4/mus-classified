@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import apiRequest from '@/helpers/apiRequest';
+import router from '@/router';
 
 export const useAdvertisementsStore = defineStore("advertisements", {
   state: () => ({
@@ -15,5 +16,19 @@ export const useAdvertisementsStore = defineStore("advertisements", {
 
       this.ads = await response.json();
     },
+    async add(headline, description, price, category, model, images) {
+      let response = await apiRequest("/ads/add", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ headline, description, price, category, model, images }),
+      })
+      
+      if (response.ok == true) {
+        let ad = await response.json();
+        router.push({ name: 'advertisement', params: { id: ad.id} });
+      }
+    }
   },
 });

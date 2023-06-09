@@ -88,11 +88,22 @@
 
 <script>
 import apiRequest from '@/helpers/apiRequest';
-import router from '@/router';
+
+import { useManufacturersStore } from "@/stores/manufacturers";
+import { useModelsStore } from "@/stores/models";
+import { useAdvertisementsStore } from "@/stores/advertisements";
 
 export default {
   setup() {
+    let manufacturersStore = useManufacturersStore();
+    manufacturersStore.getAll();
+    let modelsStore = useModelsStore();
+    let advertisementsStore = useAdvertisementsStore();
+
     return { 
+      manufacturersStore,
+      modelsStore,
+      advertisementsStore,
       imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
     }
   },
@@ -131,30 +142,7 @@ export default {
     },
     addAdvertisement() {
       let images = this.uploadedImages.map(image => image.id);
-
-      let data = {
-        headline: this.headline,
-        description: this.description,
-        price: this.price,
-        category: this.category,
-        model: this.model,
-        images,
-      };
-
-      console.log(data);
-
-      apiRequest("/ads/add", {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-      .then(async (response) => {
-        if (response.ok == true) {
-          router.push({ name: 'main' });
-        }
-      });
+      this.advertisementsStore.add(this.headline, this.description, this.price, this.category, this.model, images);
     }
   }
 }
