@@ -17,7 +17,7 @@ export const useImagesStore = defineStore("images", {
       });
 
       if (resp.ok == true) 
-        return await response.json();
+        return await resp.json();
       else return false;
     }
   },
