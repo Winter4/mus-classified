@@ -7,7 +7,11 @@
         class="col-3"
       >
         <div class="card mb-4">
-          <img :src="imageBaseUrl + ad.Images[0].path" class="card-img-top">
+          <div 
+            class="card-img-wrapper"
+            :style="{ 'background-image': `url(${imageBaseUrl + ad.Images[0].path})`}"
+            >
+          </div>
           <div class="card-body">
             <h6 class="card-title">
               <RouterLink :to="{ name: 'advertisement', params: { id: ad.id } }" class="text-dark text-decoration-none stretched-link">
@@ -49,3 +53,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.card-img-wrapper {
+  height: 350px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</style>
