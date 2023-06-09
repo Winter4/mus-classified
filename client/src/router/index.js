@@ -36,6 +36,16 @@ const routes = [
         }
       },
       {
+        path: '/advertisement/:id/edit',
+        name: 'advertisementEdit',
+        component: () => import('@/views/AdvertisementEdit.vue'), 
+        props: true,
+        meta: { 
+          requiresAuth: false,
+          title: 'Трунь - Редактировать объявление!',
+        }
+      },
+      {
         path: '/personal',
         component: () => import('@/layouts/PersonalArea.vue'), 
         children: [

@@ -31,9 +31,9 @@
           <div class="d-flex justify-content-between align-items-center">
             <h6 class="card-subtitle text-muted">{{ ad.price }}₽</h6>
             <div>
-              <span class="badge bg-secondary ad-btn me-1" @click="editAd(ad.id)">
+              <RouterLink :to="{ name: 'advertisementEdit', params: { id: ad.id } }" class="badge bg-secondary ad-btn me-1 text-decoration-none">
                 <i class="fa-solid fa-pen"></i>
-              </span>
+              </RouterLink>
               <span class="badge bg-danger ad-btn" @click="removeAd(ad.id)">
                 <i class="fa-solid fa-trash"></i>
               </span>
