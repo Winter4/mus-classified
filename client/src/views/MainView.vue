@@ -13,11 +13,13 @@
             >
           </div>
           <div class="card-body">
-            <h6 class="card-title">
-              <RouterLink :to="{ name: 'advertisement', params: { id: ad.id } }" class="text-dark text-decoration-none stretched-link">
-                {{ ad.headline }}
-              </RouterLink>
-            </h6>
+            <div class="title-wrapper mb-2">
+              <h6 class="card-title">
+                <RouterLink :to="{ name: 'advertisement', params: { id: ad.id } }" class="text-dark text-decoration-none stretched-link">
+                  {{ ad.headline }}
+                </RouterLink>
+              </h6>
+            </div>
             <h6 class="card-subtitle text-muted">{{ ad.price }}₽</h6>
           </div>
         </div>
@@ -60,5 +62,10 @@ export default {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+.title-wrapper {
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 </style>
