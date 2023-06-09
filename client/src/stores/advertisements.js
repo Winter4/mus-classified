@@ -7,7 +7,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
   }),
 
   actions: {
-    async loadAds(offset = 0, count = 20) {
+    async getAll(offset = 0, count = 20) {
       let response = await apiRequest(
         "/ads/getAll?" + new URLSearchParams({ offset, count }), 
         { method: 'GET', }

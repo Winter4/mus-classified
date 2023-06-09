@@ -29,7 +29,7 @@ import { useAdvertisementsStore } from "@/stores/advertisements";
 export default {
   setup() {
     let advertisementsStore = useAdvertisementsStore();
-    advertisementsStore.loadAds();
+    advertisementsStore.getAll();
 
     return { 
       advertisementsStore,
