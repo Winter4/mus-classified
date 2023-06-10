@@ -16,11 +16,11 @@
     </thead>
     <tbody>
       <template v-if="categories.length">
-        <tr v-for="c in categories" :key="c.id">
-          <th scope="row">{{ c.id }}</th>
-          <td>{{ c.name }}</td>
+        <tr v-for="(item, index) in categories" :key="item.id">
+          <th scope="row">{{ index + 1 }}</th>
+          <td>{{ item.name }}</td>
           <td>
-            <button class="btn btn-sm btn-outline-danger" @click="removeCategory(c.id)">
+            <button class="btn btn-sm btn-outline-danger" @click="removeCategory(item.id)">
               <i class="fa-solid fa-trash"></i>
             </button>
           </td>

@@ -17,8 +17,8 @@
     </thead>
     <tbody>
       <template v-if="models.length">
-        <tr v-for="item in models" :key="item.id">
-          <th scope="row">{{ item.id }}</th>
+        <tr v-for="(item, index) in models" :key="item.id">
+          <th scope="row">{{ index + 1 }}</th>
           <td>{{ item.Manufacturer.name }}</td>
           <td>{{ item.name }}</td>
           <td>

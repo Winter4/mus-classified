@@ -16,8 +16,8 @@
     </thead>
     <tbody>
       <template v-if="manufacturers.length">
-        <tr v-for="item in manufacturers" :key="item.id">
-          <th scope="row">{{ item.id }}</th>
+        <tr v-for="(item, index) in manufacturers" :key="item.id">
+          <th scope="row">{{ index + 1 }}</th>
           <td>{{ item.name }}</td>
           <td>
             <button class="btn btn-sm btn-outline-danger" @click="removeManufacturer(item.id)">

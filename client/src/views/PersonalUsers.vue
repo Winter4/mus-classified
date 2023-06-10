@@ -30,8 +30,8 @@
     </thead>
     <tbody>
       <template v-if="users.length">
-        <tr v-for="item in users" :key="item.id">
-          <th scope="row">{{ item.id }}</th>
+        <tr v-for="(item, index) in users" :key="item.id">
+          <th scope="row">{{ index + 1 }}</th>
           <td>{{ item.firstName }} {{ item.lastName }}</td>
           <td>{{ item.email }}</td>
           <td>{{ item.phoneNumber }}</td>
