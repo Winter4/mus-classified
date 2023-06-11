@@ -7,9 +7,9 @@ export const useCategoriesStore = defineStore("categories", {
   }),
 
   actions: {
-    async getAll(offset = 0, count = 20) {
+    async getAll() {
       let response = await apiRequest(
-        "/category/getAll?" + new URLSearchParams({ offset, count }), 
+        "/category/getAll", 
         { method: 'GET', }
       );
 

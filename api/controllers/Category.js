@@ -1,15 +1,7 @@
 const { Category } = require("../models");
 
 async function getAll(req, res) {
-  let { offset, count } = req.query;
-
-  offset = Number(offset) || 0;
-  count = Number(count) || 20;
-
-  let categories = await Category.findAll({
-    offset: offset,
-    limit: count,
-  });
+  let categories = await Category.findAll({});
 
   res.status(200).json(categories);
 }

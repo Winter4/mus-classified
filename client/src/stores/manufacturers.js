@@ -7,9 +7,9 @@ export const useManufacturersStore = defineStore("manufacturers", {
   }),
 
   actions: {
-    async getAll(offset = 0, count = 20) {
+    async getAll() {
       let response = await apiRequest(
-        "/manufacturer/getAll?" + new URLSearchParams({ offset, count }), 
+        "/manufacturer/getAll", 
         { method: 'GET', }
       );
 

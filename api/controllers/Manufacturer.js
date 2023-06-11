@@ -1,15 +1,7 @@
 const { Manufacturer } = require("../models");
 
 async function getAll(req, res) {
-  let { offset, count } = req.query;
-
-  offset = Number(offset) || 0;
-  count = Number(count) || 20;
-
-  let mans = await Manufacturer.findAll({
-    offset: offset,
-    limit: count,
-  });
+  let mans = await Manufacturer.findAll({});
 
   res.status(200).json(mans);
 }

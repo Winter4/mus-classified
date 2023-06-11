@@ -1,7 +1,7 @@
 const { Manufacturer, InstrumentModel } = require("../models");
 
 async function getAll(req, res) {
-  let { offset, count, manufacturerId } = req.query;
+  let { manufacturerId } = req.query;
 
   let where = {};
   if (manufacturerId != 0) where.manufacturerId = manufacturerId;
