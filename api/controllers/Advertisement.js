@@ -53,12 +53,16 @@ async function edit(req, res) {
 }
 
 async function getAll(req, res) {
-  let { offset, count } = req.query;
+  let { offset, count, categoryId } = req.query;
 
   offset = Number(offset) || 0;
   count = Number(count) || 20;
 
+  let where = {};
+  if (categoryId != 0) where.categoryId = categoryId;
+
   let ads = await Advertisement.findAll({
+    where,
     include: [
       {
         model: Image,

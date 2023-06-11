@@ -38,6 +38,7 @@ router.delete("/ads/remove", advertisementController.remove);
 
 // категории
 router.get("/category/getAll", categoryController.getAll);
+router.get("/category/get", categoryController.get);
 router.post("/category/add", [requiresAuth, requiresAdmin], categoryController.add);
 router.delete("/category/remove", [requiresAuth, requiresAdmin], categoryController.remove);
 

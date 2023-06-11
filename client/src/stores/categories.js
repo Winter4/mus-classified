@@ -3,6 +3,7 @@ import apiRequest from '@/helpers/apiRequest';
 
 export const useCategoriesStore = defineStore("categories", {
   state: () => ({
+    category: {},
     categories: [],
   }),
 
@@ -14,6 +15,14 @@ export const useCategoriesStore = defineStore("categories", {
       );
 
       this.categories = await response.json();
+    },
+    async get(id) {
+      let response = await apiRequest(
+        "/category/get?" + new URLSearchParams({ id }), 
+        { method: 'GET', }
+      );
+
+      this.category = await response.json();
     },
     async add(name) {
       await apiRequest(

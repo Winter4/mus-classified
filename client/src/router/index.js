@@ -46,6 +46,16 @@ const routes = [
         }
       },
       {
+        path: '/category/:id',
+        name: 'category',
+        component: () => import('@/views/Category.vue'), 
+        props: true,
+        meta: { 
+          requiresAuth: false,
+          title: 'Трунь - Категория!',
+        }
+      },
+      {
         path: '/personal',
         component: () => import('@/layouts/PersonalArea.vue'), 
         children: [
