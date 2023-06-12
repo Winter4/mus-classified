@@ -3,6 +3,9 @@
     <div class="row">
 
       <div class="col-3">
+        <RouterLink :to="{ name: 'main' }" class="btn btn-sm btn-primary w-100 mt-2 mb-3">
+          На главную
+        </RouterLink>
         
         <div class="accordion mb-3" id="categoriesAccordion">
           <div class="accordion-item">
