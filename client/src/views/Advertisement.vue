@@ -11,10 +11,19 @@
     <div class="row mb-4">
       <div class="col-8">
         <div class="card card-body pb-0">
-          <div class="row d-flex">
+            <template v-if="advertisement?.Images?.length">
+              <div class="image-display">
+                <img class="image-slide" :src="imageBaseUrl + advertisement.Images[0].path" />
+              </div>
+            </template>
+            <template v-else>
+            </template>
+
+          <div class="row d-flex mt-3">
+
             <div 
               v-for="image in advertisement.Images"
-              class="col-6 mb-3"
+              class="col-2 mb-3"
             >
               <div 
                 class="card card-image card-body card-buttons flex-row justify-content-center align-items-center"
@@ -22,6 +31,7 @@
               >
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -81,6 +91,14 @@ export default {
 </script>
 
 <style scoped>
+.image-display {
+  height: 60vh;
+}
+.image-slide {
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+}
 .card-image {
   background-repeat: no-repeat;
   background-position: center;
