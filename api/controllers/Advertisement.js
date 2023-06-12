@@ -59,7 +59,7 @@ async function getAll(req, res) {
   count = Number(count) || 20;
 
   let where = {};
-  if (categoryId != 0) where.categoryId = categoryId;
+  if (categoryId) where.categoryId = categoryId;
 
   let ads = await Advertisement.findAll({
     where,
