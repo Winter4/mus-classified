@@ -56,6 +56,16 @@ const routes = [
         }
       },
       {
+        path: '/manufacturer/:id',
+        name: 'manufacturer',
+        component: () => import('@/views/Manufacturer.vue'), 
+        props: true,
+        meta: { 
+          requiresAuth: false,
+          title: 'Трунь - Производитель!',
+        }
+      },
+      {
         path: '/personal',
         component: () => import('@/layouts/PersonalArea.vue'), 
         children: [

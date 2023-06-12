@@ -1,4 +1,4 @@
-const { Advertisement, Image, User, InstrumentModel } = require("../models");
+const { Advertisement, Image, User, Manufacturer, InstrumentModel } = require("../models");
 
 async function add(req, res) {
   const { headline, description, price, categoryId, modelId, images } = req.body;
@@ -53,13 +53,16 @@ async function edit(req, res) {
 }
 
 async function getAll(req, res) {
-  let { offset, count, categoryId } = req.query;
+  let { offset, count, categoryId, manufacturerId } = req.query;
 
   offset = Number(offset) || 0;
   count = Number(count) || 20;
 
   let where = {};
-  if (categoryId) where.categoryId = categoryId;
+  if (Number(categoryId)) where.categoryId = categoryId;
+  
+  let manufacturerWhere = {};
+  if (Number(manufacturerId)) manufacturerWhere.id = manufacturerId;
 
   let ads = await Advertisement.findAll({
     where,
@@ -67,6 +70,15 @@ async function getAll(req, res) {
       {
         model: Image,
         through: { attributes: [] }
+      },
+      {
+        model: InstrumentModel,
+        include: [
+          {
+            model: Manufacturer,
+            where: manufacturerWhere
+          },
+        ]
       }
     ],
     offset: offset,

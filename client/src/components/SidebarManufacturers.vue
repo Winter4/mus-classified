@@ -9,9 +9,13 @@
       <div id="manufacturersAccordionBody" class="accordion-collapse collapse show" data-bs-parent="#manufacturersAccordion">
         <div class="accordion-body p-0">
           <ul class="list-group list-group-flush"> 
-            <li class="list-group-item" v-for="item in manufacturers">
+            <RouterLink 
+              v-for="item in manufacturers"
+              :to="{ name: 'manufacturer', params: { id: item.id } }" 
+              class="list-group-item list-group-item-action"
+            >
               {{ item.name }}
-            </li>
+            </RouterLink>
           </ul>
         </div>
       </div>

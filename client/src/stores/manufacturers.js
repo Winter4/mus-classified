@@ -3,6 +3,7 @@ import apiRequest from '@/helpers/apiRequest';
 
 export const useManufacturersStore = defineStore("manufacturers", {
   state: () => ({
+    manufacturer: {},
     manufacturers: [],
   }),
 
@@ -14,6 +15,14 @@ export const useManufacturersStore = defineStore("manufacturers", {
       );
 
       this.manufacturers = await response.json();
+    },
+    async get(id) {
+      let response = await apiRequest(
+        "/manufacturer/get?" + new URLSearchParams({ id }), 
+        { method: 'GET', }
+      );
+
+      this.manufacturer = await response.json();
     },
     async add(name) {
       await apiRequest(

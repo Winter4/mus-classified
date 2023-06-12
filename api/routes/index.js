@@ -44,6 +44,7 @@ router.delete("/category/remove", [requiresAuth, requiresAdmin], categoryControl
 
 // производители
 router.get("/manufacturer/getAll", manufacturerController.getAll);
+router.get("/manufacturer/get", manufacturerController.get);
 router.post("/manufacturer/add", [requiresAuth, requiresAdmin], manufacturerController.add);
 router.delete("/manufacturer/remove", [requiresAuth, requiresAdmin], manufacturerController.remove);
 
