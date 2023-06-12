@@ -1,4 +1,4 @@
-const { Advertisement, Image, User, Manufacturer, InstrumentModel } = require("../models");
+const { Advertisement, Image, User, Manufacturer, InstrumentModel, Sequelize } = require("../models");
 
 async function add(req, res) {
   const { headline, description, price, categoryId, modelId, images } = req.body;
@@ -53,7 +53,7 @@ async function edit(req, res) {
 }
 
 async function getAll(req, res) {
-  let { offset, count, categoryId, manufacturerId } = req.query;
+  let { offset, count, categoryId, manufacturerId, modelIds } = req.query;
 
   offset = Number(offset) || 0;
   count = Number(count) || 20;
@@ -64,6 +64,12 @@ async function getAll(req, res) {
   let manufacturerWhere = {};
   if (Number(manufacturerId)) manufacturerWhere.id = manufacturerId;
 
+  let modelWhere = {};
+  if (modelIds) {
+    modelWhere.id = {};
+    modelWhere.id[Sequelize.Op.in] = modelIds.split(',');
+  }
+
   let ads = await Advertisement.findAll({
     where,
     include: [
@@ -73,6 +79,7 @@ async function getAll(req, res) {
       },
       {
         model: InstrumentModel,
+        where: modelWhere,
         include: [
           {
             model: Manufacturer,

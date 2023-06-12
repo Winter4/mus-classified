@@ -7,6 +7,7 @@
           На главную
         </RouterLink>
         
+        <SidebarModels :manufacturerId="id" @checkedModels="onCheckModels"/>
       </div>
 
       <div class="col-9">
@@ -43,28 +44,21 @@
 </template>
 
 <script>
-// import SidebarCategories from '@/components/SidebarCategories.vue';
+import SidebarModels from '@/components/SidebarModels.vue';
 
-// import { useCategoriesStore } from "@/stores/categories";
 import { useManufacturersStore } from "@/stores/manufacturers";
 import { useAdvertisementsStore } from "@/stores/advertisements";
 
 export default {
   props: ['id'],
   components: {
-    // SidebarCategories,
+    SidebarModels,
   },
   setup() {
-    // let сategoriesStore = useCategoriesStore();
-    // сategoriesStore.getAll();
-
     let manufacturersStore = useManufacturersStore();
-    // manufacturersStore.getAll();
-
     let advertisementsStore = useAdvertisementsStore();
 
     return { 
-      // сategoriesStore,
       manufacturersStore,
       advertisementsStore,
       imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
@@ -75,15 +69,9 @@ export default {
     }
   },
   computed: {
-    // categories() {
-    //   return this.сategoriesStore.categories;
-    // },
     manufacturer() {
       return this.manufacturersStore.manufacturer;
     },
-    // manufacturers() {
-    //   return this.manufacturersStore.manufacturers;
-    // },
     advertisements() {
       return this.advertisementsStore.ads;
     }
@@ -93,6 +81,9 @@ export default {
     this.advertisementsStore.getAll({manufacturerId: this.id});
   },
   methods: {
+    onCheckModels(modelIds) {
+      this.advertisementsStore.getAll({ manufacturerId: this.id, modelIds });
+    }
   }
 }
 </script>
