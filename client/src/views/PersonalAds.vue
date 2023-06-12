@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     advertisements() {
-      return this.advertisementsStore.ads;
+      return this.advertisementsStore.myAds;
     }
   },
   methods: {

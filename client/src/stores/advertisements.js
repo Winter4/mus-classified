@@ -6,6 +6,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
   state: () => ({
     ad: {},
     ads: [],
+    myAds: [],
   }),
 
   actions: {
@@ -31,7 +32,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
         { method: 'GET', }
       );
 
-      this.ads = await response.json();
+      this.myAds = await response.json();
     },
     async add(headline, description, price, categoryId, modelId, images) {
       let response = await apiRequest("/ads/add", {
