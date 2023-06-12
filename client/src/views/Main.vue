@@ -3,49 +3,8 @@
     <div class="row">
 
       <div class="col-3">
-        
-        <div class="accordion mb-3" id="categoriesAccordion">
-          <div class="accordion-item">
-            <div class="accordion-header">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesAccordionBody" aria-expanded="true" aria-controls="categoriesAccordionBody">
-                <h5 class="card-title m-0">Категории</h5>
-              </button>
-            </div>
-            <div id="categoriesAccordionBody" class="accordion-collapse collapse show" data-bs-parent="#categoriesAccordion">
-              <div class="accordion-body p-0">
-                <ul class="list-group list-group-flush"> 
-                  <RouterLink 
-                    v-for="item in categories"
-                    :to="{ name: 'category', params: { id: item.id } }" 
-                    class="list-group-item list-group-item-action"
-                  >
-                    {{ item.name }}
-                  </RouterLink>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion" id="manufacturersAccordion">
-          <div class="accordion-item">
-            <div class="accordion-header">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#manufacturersAccordionBody" aria-expanded="true" aria-controls="manufacturersAccordionBody">
-                <h5 class="card-title m-0">Производители</h5>
-              </button>
-            </div>
-            <div id="manufacturersAccordionBody" class="accordion-collapse collapse show" data-bs-parent="#manufacturersAccordion">
-              <div class="accordion-body p-0">
-                <ul class="list-group list-group-flush"> 
-                  <li class="list-group-item" v-for="item in manufacturers">
-                    {{ item.name }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <SidebarCategories />
+        <SidebarManufacturers />
       </div>
 
       <div class="col-9">
@@ -82,24 +41,21 @@
 </template>
 
 <script>
-import { useCategoriesStore } from "@/stores/categories";
-import { useManufacturersStore } from "@/stores/manufacturers";
+import SidebarCategories from '@/components/SidebarCategories.vue';
+import SidebarManufacturers from '@/components/SidebarManufacturers.vue';
+
 import { useAdvertisementsStore } from "@/stores/advertisements";
 
 export default {
+  components: {
+    SidebarCategories,
+    SidebarManufacturers,
+  },
   setup() {
-    let сategoriesStore = useCategoriesStore();
-    сategoriesStore.getAll();
-
-    let manufacturersStore = useManufacturersStore();
-    manufacturersStore.getAll();
-
     let advertisementsStore = useAdvertisementsStore();
     advertisementsStore.getAll();
 
     return { 
-      сategoriesStore,
-      manufacturersStore,
       advertisementsStore,
       imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
     }
@@ -109,12 +65,6 @@ export default {
     }
   },
   computed: {
-    categories() {
-      return this.сategoriesStore.categories;
-    },
-    manufacturers() {
-      return this.manufacturersStore.manufacturers;
-    },
     advertisements() {
       return this.advertisementsStore.ads;
     }
