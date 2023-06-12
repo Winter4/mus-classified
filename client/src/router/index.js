@@ -66,6 +66,15 @@ const routes = [
         }
       },
       {
+        path: '/search',
+        name: 'search',
+        component: () => import('@/views/Search.vue'), 
+        meta: { 
+          requiresAuth: false,
+          title: 'Трунь - Поиск!',
+        }
+      },
+      {
         path: '/personal',
         component: () => import('@/layouts/PersonalArea.vue'), 
         children: [

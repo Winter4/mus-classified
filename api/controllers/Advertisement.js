@@ -53,13 +53,19 @@ async function edit(req, res) {
 }
 
 async function getAll(req, res) {
-  let { offset, count, categoryId, manufacturerId, modelIds } = req.query;
+  let { offset, count, categoryId, manufacturerId, modelIds, searchQuery } = req.query;
 
   offset = Number(offset) || 0;
   count = Number(count) || 20;
 
   let where = {};
   if (Number(categoryId)) where.categoryId = categoryId;
+  if (searchQuery?.length) {
+    where[Sequelize.Op.or] = {
+      headline: { [Sequelize.Op.like]: '%' + searchQuery + '%' },
+      description: { [Sequelize.Op.like]: '%' + searchQuery + '%' },
+    }
+  }
   
   let manufacturerWhere = {};
   if (Number(manufacturerId)) manufacturerWhere.id = manufacturerId;

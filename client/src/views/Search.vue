@@ -2,31 +2,21 @@
   <div class="container-lg">
     <Search />
     
+    <h3 class="mt-2 my-3">Результаты поиска</h3>
+
     <div class="row mt-3">
-
-      <div class="col-3">
-        <SidebarCategories />
-        <SidebarManufacturers />
-      </div>
-
-      <div class="col-9">
-        <h3 class="mt-2 mb-3">Все объявления</h3>
-        
-        <div class="row">
-          <div class="col-4 mb-4" v-for="ad in advertisements">
-            <Advertisement :ad="ad" />
-          </div>
+      <template v-if="advertisements.length">
+        <div class="col-3 mb-4" v-for="ad in advertisements">
+          <Advertisement :ad="ad" />
         </div>
-      </div>
-
+      </template>
+      <h4 v-else>Объявлений не найдено</h4>
     </div>
   </div>
 </template>
 
 <script>
 import Search from '@/components/Search.vue';
-import SidebarCategories from '@/components/SidebarCategories.vue';
-import SidebarManufacturers from '@/components/SidebarManufacturers.vue';
 import Advertisement from '@/components/Advertisement.vue';
 
 import { useAdvertisementsStore } from "@/stores/advertisements";
@@ -34,13 +24,10 @@ import { useAdvertisementsStore } from "@/stores/advertisements";
 export default {
   components: {
     Search,
-    SidebarCategories,
-    SidebarManufacturers,
     Advertisement,
   },
   setup() {
     let advertisementsStore = useAdvertisementsStore();
-    advertisementsStore.getAll();
 
     return { 
       advertisementsStore,
@@ -52,5 +39,13 @@ export default {
       return this.advertisementsStore.ads;
     }
   },
+  created() {
+    this.advertisementsStore.getAll({
+      categoryId: this.$route.query.categoryId,
+      manufacturerId: this.$route.query.manufacturerId, 
+      modelIds: Number(this.$route.query.modelId) || [], 
+      searchQuery: this.$route.query.searchQuery
+    });
+  }
 }
 </script>
