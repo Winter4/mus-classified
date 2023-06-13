@@ -19,6 +19,10 @@ module.exports = (sequelize) => {
       price: { type: DataTypes.INTEGER, allowNull: false },
       categoryId: { type: DataTypes.INTEGER, allowNull: true },
       modelId: { type: DataTypes.INTEGER, allowNull: true },
+      moderStatus: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+      moderReason: { type: DataTypes.STRING, allowNull: true },
+      expertStatus: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
+      expertReview: { type: DataTypes.TEXT, allowNull: true },
     },
     {
       sequelize,

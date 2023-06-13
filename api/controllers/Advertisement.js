@@ -1,4 +1,5 @@
 const { Advertisement, Image, User, Manufacturer, InstrumentModel, Sequelize } = require("../models");
+const adModerStatus = require('../helpers/adModerStatus');
 
 async function add(req, res) {
   const { headline, description, price, categoryId, modelId, images } = req.body;
@@ -124,6 +125,29 @@ async function getMy(req, res) {
   res.status(200).json(ads);
 }
 
+async function getModer(req, res) {
+  let { offset, count } = req.query;
+
+  offset = Number(offset) || 0;
+  count = Number(count) || 20;
+
+  let ads = await Advertisement.findAll({
+    where: {
+      moderStatus: adModerStatus.CREATED,
+    },
+    include: [
+      {
+        model: Image,
+        through: { attributes: [] }
+      }
+    ],
+    offset: offset,
+    limit: count,
+  });
+
+  res.status(200).json(ads);
+}
+
 async function get(req, res) {
   let { id } = req.query;
 
@@ -173,6 +197,7 @@ module.exports = {
   edit,
   getAll,
   getMy,
+  getModer,
   get,
   remove
 }

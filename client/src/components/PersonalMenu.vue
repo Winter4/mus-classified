@@ -16,6 +16,14 @@
             </li>
           </template>
 
+          <template v-if="userStore?.user?.role == userRoles.MODER">
+            <li class="nav-item w-100 mb-2">
+              <RouterLink :to="{ name: 'personalModerAds' }" class="btn btn-sm btn-outline-primary w-100">
+                Объявления
+              </RouterLink>
+            </li>
+          </template>
+
           <template v-else-if="userStore?.user?.role == userRoles.ADMIN">
             <li class="nav-item w-100 mb-2">
               <RouterLink :to="{ name: 'personalCategories' }" class="btn btn-sm btn-outline-primary w-100">

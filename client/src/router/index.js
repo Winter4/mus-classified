@@ -82,7 +82,6 @@ const routes = [
             path: '/personal',
             name: 'personalArea',
             component: () => import('@/views/PersonalArea.vue'), 
-            props: true,
             meta: { 
               requiresAuth: true,
               title: 'Трунь - Личный кабинет',
@@ -92,7 +91,6 @@ const routes = [
             path: '/personal/ads',
             name: 'personalAds',
             component: () => import('@/views/PersonalAds.vue'), 
-            props: true,
             meta: { 
               requiresAuth: true,
               userRole: userRoles.USER,
@@ -100,10 +98,19 @@ const routes = [
             }
           },
           {
+            path: '/personal/moderAds',
+            name: 'personalModerAds',
+            component: () => import('@/views/PersonalModerAds.vue'), 
+            meta: { 
+              requiresAuth: true,
+              userRole: userRoles.MODER,
+              title: 'Трунь - Объявления для модерации!',
+            }
+          },
+          {
             path: '/personal/categories',
             name: 'personalCategories',
             component: () => import('@/views/PersonalCategories.vue'), 
-            props: true,
             meta: { 
               requiresAuth: true,
               userRole: userRoles.ADMIN,
@@ -114,7 +121,6 @@ const routes = [
             path: '/personal/manufacturers',
             name: 'personalManufacturers',
             component: () => import('@/views/PersonalManufacturers.vue'), 
-            props: true,
             meta: { 
               requiresAuth: true,
               userRole: userRoles.ADMIN,
@@ -125,7 +131,6 @@ const routes = [
             path: '/personal/models',
             name: 'personalModels',
             component: () => import('@/views/PersonalModels.vue'), 
-            props: true,
             meta: { 
               requiresAuth: true,
               userRole: userRoles.ADMIN,
@@ -136,7 +141,6 @@ const routes = [
             path: '/personal/users',
             name: 'personalUsers',
             component: () => import('@/views/PersonalUsers.vue'), 
-            props: true,
             meta: { 
               requiresAuth: true,
               userRole: userRoles.ADMIN,
@@ -147,7 +151,6 @@ const routes = [
             path: '/personal/settings',
             name: 'personalSettings',
             component: () => import('@/views/PersonalSettings.vue'), 
-            props: true,
             meta: { 
               requiresAuth: true,
               title: 'Трунь - Мои настройки',

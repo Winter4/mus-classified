@@ -7,6 +7,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
     ad: {},
     ads: [],
     myAds: [],
+    moderAds: [],
   }),
 
   actions: {
@@ -33,6 +34,14 @@ export const useAdvertisementsStore = defineStore("advertisements", {
       );
 
       this.myAds = await response.json();
+    },
+    async getModer(offset = 0, count = 20) {
+      let response = await apiRequest(
+        "/ads/getModer?" + new URLSearchParams({ offset, count }), 
+        { method: 'GET', }
+      );
+
+      this.moderAds = await response.json();
     },
     async add(headline, description, price, categoryId, modelId, images) {
       let response = await apiRequest("/ads/add", {
