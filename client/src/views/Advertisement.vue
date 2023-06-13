@@ -50,6 +50,8 @@
             <small class="text-muted">Телефон</small>
           </li>
         </ul>
+
+        <AdvertisementPageButtons :ad="advertisement" />
       </div>
     </div>
     <div class="row">
@@ -63,10 +65,14 @@
 </template>
 
 <script>
+import AdvertisementPageButtons from "@/components/AdvertisementPageButtons.vue";
 import { useAdvertisementsStore } from "@/stores/advertisements";
 
 export default {
   props: ['id'],
+  components: {
+    AdvertisementPageButtons,
+  },
   setup() {
     let advertisementsStore = useAdvertisementsStore();
 

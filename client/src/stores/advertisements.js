@@ -6,7 +6,6 @@ export const useAdvertisementsStore = defineStore("advertisements", {
   state: () => ({
     ad: {},
     ads: [],
-    myAds: [],
     moderAds: [],
   }),
 
@@ -19,21 +18,13 @@ export const useAdvertisementsStore = defineStore("advertisements", {
 
       this.ad = await response.json();
     },
-    async getAll({ offset = 0, count = 20, categoryId = 0, manufacturerId = 0, modelIds = [], searchQuery = '' } = {}) {
+    async getAll({ offset = 0, count = 20, userId = 0, categoryId = 0, manufacturerId = 0, modelIds = [], searchQuery = '' } = {}) {
       let response = await apiRequest(
-        "/ads/getAll?" + new URLSearchParams({ offset, count, categoryId, manufacturerId, modelIds, searchQuery }), 
+        "/ads/getAll?" + new URLSearchParams({ offset, count, userId, categoryId, manufacturerId, modelIds, searchQuery }), 
         { method: 'GET', }
       );
 
       this.ads = await response.json();
-    },
-    async getMy(offset = 0, count = 20) {
-      let response = await apiRequest(
-        "/ads/getMy?" + new URLSearchParams({ offset, count }), 
-        { method: 'GET', }
-      );
-
-      this.myAds = await response.json();
     },
     async getModer(offset = 0, count = 20) {
       let response = await apiRequest(

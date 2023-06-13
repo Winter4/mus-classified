@@ -10,98 +10,40 @@
 
   <div class="row">
 
-    <div 
-      v-for="ad in advertisements"
-      class="col-3"
-    >
-      <div class="card mb-4">
-        <div 
-          class="card-img-wrapper"
-          :style="{ 'background-image': ad.Images?.[0] ? `url(${imageBaseUrl + ad.Images[0].path})` : 'none' }"
-          >
-        </div>
-        <div class="card-body">
-          <div class="title-wrapper mb-2">
-            <h6 class="card-title">
-              <RouterLink :to="{ name: 'advertisement', params: { id: ad.id } }" class="text-dark text-decoration-none">
-                {{ ad.headline }}
-              </RouterLink>
-            </h6>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <h6 class="card-subtitle text-muted">{{ ad.price }}₽</h6>
-            <div>
-              <RouterLink :to="{ name: 'advertisementEdit', params: { id: ad.id } }" class="badge bg-secondary ad-btn me-1 text-decoration-none">
-                <i class="fa-solid fa-pen"></i>
-              </RouterLink>
-              <span class="badge bg-danger ad-btn" @click="removeAd(ad.id)">
-                <i class="fa-solid fa-trash"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-3 mb-4" v-for="ad in advertisements">
+      <Advertisement :ad="ad" />
     </div>
     
   </div>
 </template>
 
 <script>
+import Advertisement from '@/components/Advertisement.vue';
 import { RouterLink } from 'vue-router';
+import { useUserStore } from "@/stores/user";
 import { useAdvertisementsStore } from "@/stores/advertisements";
 
 export default {
   components: {
     RouterLink,
+    Advertisement,
   },
   setup() {
+    const userStore = useUserStore();
+
     let advertisementsStore = useAdvertisementsStore();
-    advertisementsStore.getMy();
+    advertisementsStore.getAll({ userId: userStore.user.id });
 
     return { 
+      userStore,
       advertisementsStore,
       imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
     }
   },
-  data() {
-    return {
-    }
-  },
   computed: {
     advertisements() {
-      return this.advertisementsStore.myAds;
-    }
-  },
-  methods: {
-    editAd() {
-      alert("editAd");
-    },
-    async removeAd(id) {
-      if (confirm("Вы действительно хотите удалить объявление?")) {
-        await this.advertisementsStore.remove(id);
-        await this.advertisementsStore.getMy();
-      }
+      return this.advertisementsStore.ads;
     }
   }
 }
 </script>
-
-<style>
-.card-img-wrapper {
-  height: 250px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.ad-btn {
-  cursor: pointer;
-}
-.ad-btn:hover {
-  opacity: .8;
-}
-.title-wrapper {
-  height: 40px;
-  display: flex;
-  align-items: center;
-}
-</style>

@@ -54,12 +54,13 @@ async function edit(req, res) {
 }
 
 async function getAll(req, res) {
-  let { offset, count, categoryId, manufacturerId, modelIds, searchQuery } = req.query;
+  let { offset, count, userId, categoryId, manufacturerId, modelIds, searchQuery } = req.query;
 
   offset = Number(offset) || 0;
   count = Number(count) || 20;
 
   let where = {};
+  if (Number(userId)) where.userId = userId;
   if (Number(categoryId)) where.categoryId = categoryId;
   if (searchQuery?.length) {
     where[Sequelize.Op.or] = {
@@ -93,29 +94,6 @@ async function getAll(req, res) {
             where: manufacturerWhere
           },
         ]
-      }
-    ],
-    offset: offset,
-    limit: count,
-  });
-
-  res.status(200).json(ads);
-}
-
-async function getMy(req, res) {
-  let { offset, count } = req.query;
-
-  offset = Number(offset) || 0;
-  count = Number(count) || 20;
-
-  let ads = await Advertisement.findAll({
-    where: {
-      userId: req.currentUser.id
-    },
-    include: [
-      {
-        model: Image,
-        through: { attributes: [] }
       }
     ],
     offset: offset,
@@ -196,7 +174,6 @@ module.exports = {
   add,
   edit,
   getAll,
-  getMy,
   getModer,
   get,
   remove

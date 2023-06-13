@@ -33,7 +33,6 @@ router.post("/images/upload", requiresAuth, imageController.upload);
 router.post("/ads/add", requiresAuth, advertisementController.add);
 router.post("/ads/edit", requiresAuth, advertisementController.edit);
 router.get("/ads/getAll", advertisementController.getAll);
-router.get("/ads/getMy", requiresAuth, advertisementController.getMy);
 router.get("/ads/getModer", [requiresAuth, requiresModer], advertisementController.getModer);
 router.get("/ads/get", advertisementController.get);
 router.delete("/ads/remove", advertisementController.remove);
