@@ -1,5 +1,6 @@
 const { Advertisement, Image, User, Manufacturer, InstrumentModel, Sequelize } = require("../models");
 const adModerStatus = require('../helpers/adModerStatus');
+const adExpertStatus = require('../helpers/adExpertStatus');
 
 async function add(req, res) {
   const { headline, description, price, categoryId, modelId, images } = req.body;
@@ -144,7 +145,7 @@ async function editModer(req, res) {
   const { id, moderStatus, moderReason } = req.body;
 
   if (!id) return res.status(400).json({ error: "Id cannot be empty" });
-  if (!moderStatus) return res.status(400).json({ error: "moderStatus cannot be empty" });
+  if (!moderStatus) return res.status(400).json({ error: "Status cannot be empty" });
 
   let ad = await Advertisement.findByPk(id);
 
@@ -153,6 +154,76 @@ async function editModer(req, res) {
   await ad.update({
     moderStatus,
     moderReason,
+  });
+
+  await ad.save();
+
+  res.status(200).json(ad);
+}
+
+async function getExpert(req, res) {
+  let { offset, count } = req.query;
+
+  offset = Number(offset) || 0;
+  count = Number(count) || 20;
+
+  let ads = await Advertisement.findAll({
+    where: {
+      expertStatus: adExpertStatus.REQUESTED,
+    },
+    include: [
+      {
+        model: Image,
+        through: { attributes: [] }
+      },
+      {
+        model: InstrumentModel,
+        include: [
+          {
+            model: Manufacturer,
+          },
+        ]
+      }
+    ],
+    offset: offset,
+    limit: count,
+  });
+
+  res.status(200).json(ads);
+}
+
+async function editExpert(req, res) {
+  const { id, expertStatus, expertReview } = req.body;
+
+  if (!id) return res.status(400).json({ error: "Id cannot be empty" });
+  if (!expertStatus) return res.status(400).json({ error: "Status cannot be empty" });
+  if (!expertReview) return res.status(400).json({ error: "Review cannot be empty" });
+
+  let ad = await Advertisement.findByPk(id);
+
+  if (!ad) return res.status(400).json({ error: "Incorrect id" });
+
+  await ad.update({
+    expertStatus,
+    expertReview,
+  });
+
+  await ad.save();
+
+  res.status(200).json(ad);
+}
+
+async function requestReview(req, res) {
+  const { id } = req.body;
+
+  if (!id) return res.status(400).json({ error: "Id cannot be empty" });
+  
+  let ad = await Advertisement.findByPk(id);
+
+  if (!ad) return res.status(400).json({ error: "Incorrect id" });
+
+  await ad.update({
+    expertStatus: adExpertStatus.REQUESTED,
   });
 
   await ad.save();
@@ -210,6 +281,9 @@ module.exports = {
   getAll,
   getModer,
   editModer,
+  getExpert,
+  editExpert,
+  requestReview,
   get,
   remove
 }

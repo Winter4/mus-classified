@@ -4,6 +4,7 @@ const authenticate = require("../middleware/authenticate");
 const requiresAuth = require("../middleware/requiresAuth");
 const requiresAdmin = require("../middleware/requiresAdmin");
 const requiresModer = require("../middleware/requiresModer");
+const requiresExpert = require("../middleware/requiresExpert");
 const errorHandler = require("../middleware/errorHandler");
 
 const userController = require("../controllers/User");
@@ -35,6 +36,9 @@ router.post("/ads/edit", requiresAuth, advertisementController.edit);
 router.get("/ads/getAll", advertisementController.getAll);
 router.get("/ads/getModer", [requiresAuth, requiresModer], advertisementController.getModer);
 router.post("/ads/editModer", [requiresAuth, requiresModer], advertisementController.editModer);
+router.get("/ads/getExpert", [requiresAuth, requiresExpert], advertisementController.getExpert);
+router.post("/ads/editExpert", [requiresAuth, requiresExpert], advertisementController.editExpert);
+router.post("/ads/requestReview", requiresAuth, advertisementController.requestReview);
 router.get("/ads/get", advertisementController.get);
 router.delete("/ads/remove", advertisementController.remove);
 

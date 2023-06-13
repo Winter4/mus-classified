@@ -72,6 +72,13 @@
         </ul>
 
         <AdvertisementPageButtons :ad="advertisement" />
+
+        <div v-if="advertisement.expertStatus == adExpertStatus.REVIEWED" class="card border-success mb-3">
+          <div class="card-header text-success border-success">Экспертная оценка</div>
+          <div class="card-body">
+            <p class="card-text text-success">{{ advertisement.expertReview }}</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -89,6 +96,7 @@ import AdvertisementPageButtons from "@/components/AdvertisementPageButtons.vue"
 import { useUserStore } from "@/stores/user";
 import { useAdvertisementsStore } from "@/stores/advertisements";
 import adModerStatus from "@/helpers/adModerStatus";
+import adExpertStatus from "@/helpers/adExpertStatus";
 
 export default {
   props: ['id'],
@@ -103,6 +111,7 @@ export default {
       userStore,
       advertisementsStore,
       adModerStatus,
+      adExpertStatus,
       imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
     }
   },

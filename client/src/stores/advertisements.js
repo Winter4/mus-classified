@@ -7,6 +7,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
     ad: {},
     ads: [],
     moderAds: [],
+    expertAds: [],
   }),
 
   actions: {
@@ -46,6 +47,36 @@ export const useAdvertisementsStore = defineStore("advertisements", {
       if (response.ok == true) {
         router.push({ name: 'personalModerAds' });
       }
+    },
+    async getExpert(offset = 0, count = 20) {
+      let response = await apiRequest(
+        "/ads/getExpert?" + new URLSearchParams({ offset, count }), 
+        { method: 'GET', }
+      );
+
+      this.expertAds = await response.json();
+    },
+    async editExpert(id, expertStatus, expertReview) {
+      let response = await apiRequest("/ads/editExpert", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, expertStatus, expertReview }),
+      })
+      
+      if (response.ok == true) {
+        // router.push({ name: 'personalModerAds' });
+      }
+    },
+    async requestReview(id) {
+      return await apiRequest("/ads/requestReview", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      })
     },
     async add(headline, description, price, categoryId, modelId, images) {
       let response = await apiRequest("/ads/add", {

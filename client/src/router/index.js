@@ -108,6 +108,16 @@ const routes = [
             }
           },
           {
+            path: '/personal/expertAds',
+            name: 'personalExpertAds',
+            component: () => import('@/views/PersonalExpertAds.vue'), 
+            meta: { 
+              requiresAuth: true,
+              userRole: userRoles.EXPERT,
+              title: 'Трунь - Запросы на экспертную оценку!',
+            }
+          },
+          {
             path: '/personal/categories',
             name: 'personalCategories',
             component: () => import('@/views/PersonalCategories.vue'), 
