@@ -1,5 +1,25 @@
 <template>
   <div class="container-lg">
+
+    <template v-if="advertisement?.User?.id == userStore.user.id">
+      <div v-if="advertisement.moderStatus == adModerStatus.CREATED" class="card text-dark bg-warning mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Объявление на рассмотрении</h5>
+          <p class="card-text">Ваше объявление находится на рассмотрении. Пожалуйста, пожодите, пока модераторы рассмотрят ваше объявление.</p>
+        </div>
+      </div>
+
+      <div v-if="advertisement.moderStatus == adModerStatus.REFUSED" class="card text-dark bg-danger mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Объявлению отказано в публикации</h5>
+          <p class="card-text">Вашему объявлению отказано в публикации.
+            Отредактируйте его согласно правилам или предъявленным требованиям, и модераторы снова рассмотрят его. 
+            Причину отказа вы можете увидеть ниже:</p>
+          <p class="card-text">{{ advertisement.moderReason }}</p>
+        </div>
+      </div>
+    </template>
+
     <div class="row mb-4">
       <div class="col-8">
         <h1>{{ advertisement.headline }}</h1>
@@ -66,7 +86,9 @@
 
 <script>
 import AdvertisementPageButtons from "@/components/AdvertisementPageButtons.vue";
+import { useUserStore } from "@/stores/user";
 import { useAdvertisementsStore } from "@/stores/advertisements";
+import adModerStatus from "@/helpers/adModerStatus";
 
 export default {
   props: ['id'],
@@ -74,10 +96,13 @@ export default {
     AdvertisementPageButtons,
   },
   setup() {
+    const userStore = useUserStore();
     let advertisementsStore = useAdvertisementsStore();
 
     return { 
+      userStore,
       advertisementsStore,
+      adModerStatus,
       imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
     }
   },

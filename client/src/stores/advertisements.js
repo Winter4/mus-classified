@@ -34,6 +34,19 @@ export const useAdvertisementsStore = defineStore("advertisements", {
 
       this.moderAds = await response.json();
     },
+    async editModer(id, moderStatus, moderReason = "") {
+      let response = await apiRequest("/ads/editModer", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, moderStatus, moderReason }),
+      })
+      
+      if (response.ok == true) {
+        router.push({ name: 'personalModerAds' });
+      }
+    },
     async add(headline, description, price, categoryId, modelId, images) {
       let response = await apiRequest("/ads/add", {
         method: 'POST',

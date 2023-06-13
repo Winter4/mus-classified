@@ -44,6 +44,7 @@ async function edit(req, res) {
     price,
     categoryId,
     modelId,
+    moderStatus: adModerStatus.CREATED,
   });
 
   if (images.length) ad.setImages(images);
@@ -59,8 +60,13 @@ async function getAll(req, res) {
   offset = Number(offset) || 0;
   count = Number(count) || 20;
 
-  let where = {};
-  if (Number(userId)) where.userId = userId;
+  let where = {
+    moderStatus: adModerStatus.PUBLISHED,
+  };
+  if (Number(userId)) {
+    where.userId = userId;
+    if (userId == req?.currentUser?.id) delete where.moderStatus;
+  }
   if (Number(categoryId)) where.categoryId = categoryId;
   if (searchQuery?.length) {
     where[Sequelize.Op.or] = {
@@ -117,6 +123,14 @@ async function getModer(req, res) {
       {
         model: Image,
         through: { attributes: [] }
+      },
+      {
+        model: InstrumentModel,
+        include: [
+          {
+            model: Manufacturer,
+          },
+        ]
       }
     ],
     offset: offset,
@@ -124,6 +138,26 @@ async function getModer(req, res) {
   });
 
   res.status(200).json(ads);
+}
+
+async function editModer(req, res) {
+  const { id, moderStatus, moderReason } = req.body;
+
+  if (!id) return res.status(400).json({ error: "Id cannot be empty" });
+  if (!moderStatus) return res.status(400).json({ error: "moderStatus cannot be empty" });
+
+  let ad = await Advertisement.findByPk(id);
+
+  if (!ad) return res.status(400).json({ error: "Incorrect id" });
+
+  await ad.update({
+    moderStatus,
+    moderReason,
+  });
+
+  await ad.save();
+
+  res.status(200).json(ad);
 }
 
 async function get(req, res) {
@@ -175,6 +209,7 @@ module.exports = {
   edit,
   getAll,
   getModer,
+  editModer,
   get,
   remove
 }
