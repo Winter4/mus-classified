@@ -1,7 +1,7 @@
 <template>
   <div class="container-lg">
 
-    <template v-if="advertisement?.User?.id == userStore.user.id">
+    <template v-if="advertisement?.User?.id == userStore?.user?.id">
       <div v-if="advertisement.moderStatus == adModerStatus.CREATED" class="card text-dark bg-warning mb-3">
         <div class="card-body">
           <h5 class="card-title">Объявление на рассмотрении</h5>
