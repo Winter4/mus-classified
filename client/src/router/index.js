@@ -158,6 +158,15 @@ const routes = [
             }
           },
           {
+            path: '/personal/messages',
+            name: 'personalMessages',
+            component: () => import('@/views/PersonalMessages.vue'), 
+            meta: { 
+              requiresAuth: true,
+              title: 'Трунь - Мои сообщения',
+            }
+          },
+          {
             path: '/personal/settings',
             name: 'personalSettings',
             component: () => import('@/views/PersonalSettings.vue'), 

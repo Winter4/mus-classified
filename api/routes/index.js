@@ -63,6 +63,7 @@ router.delete("/model/remove", [requiresAuth, requiresAdmin], instrumentModelCon
 // сообщения
 router.post("/message/add", requiresAuth, messageController.add);
 router.get("/message/getAll", requiresAuth, messageController.getAll);
+router.get("/message/getDialogs", requiresAuth, messageController.getDialogs);
 
 router.all("*", (req, res) => {
   res.status(404).json({ error: 404 })

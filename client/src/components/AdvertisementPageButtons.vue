@@ -29,9 +29,11 @@
     </template>
 
     <template v-else-if="userStore.user.role == userRoles.USER && ad?.User?.id != userStore.user.id">
-      <button type="button" class="btn btn-primary w-100 mb-3">
+      <button type="button" class="btn btn-primary w-100 mb-3" data-bs-toggle="modal" data-bs-target="#messagesModal">
         Написать сообщение
       </button>
+
+      <MessagesModal v-if="ad?.User?.id" :userId="ad?.User?.id" />
 
       <button v-if="ad?.expertStatus == adExpertStatus.CREATED" type="button" class="btn btn-primary w-100" @click="requestReview()">
         Запросить экспертную оценку
@@ -53,6 +55,7 @@
 
 <script>
 import { RouterLink } from 'vue-router';
+import MessagesModal from '@/components/MessagesModal.vue';
 import { useUserStore } from "@/stores/user";
 import userRoles from "@/helpers/userRoles";
 import adModerStatus from "@/helpers/adModerStatus";
@@ -64,6 +67,7 @@ export default {
   props: ["ad"],
   components: {
     RouterLink,
+    MessagesModal,
   },
   setup() {
     const userStore = useUserStore();

@@ -14,6 +14,11 @@
                 Мои объявления
               </RouterLink>
             </li>
+            <li class="nav-item w-100 mb-2">
+              <RouterLink :to="{ name: 'personalMessages' }" class="btn btn-sm btn-outline-primary w-100">
+                Мои сообщения
+              </RouterLink>
+            </li>
           </template>
 
           <template v-if="userStore?.user?.role == userRoles.MODER">
