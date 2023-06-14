@@ -13,7 +13,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
   actions: {
     async get(id) {
       let response = await apiRequest(
-        "/ads/get?" + new URLSearchParams({ id }), 
+        "/advertisements/get?" + new URLSearchParams({ id }), 
         { method: 'GET', }
       );
 
@@ -21,7 +21,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
     },
     async getAll({ offset = 0, count = 20, userId = 0, categoryId = 0, manufacturerId = 0, modelIds = [], searchQuery = '' } = {}) {
       let response = await apiRequest(
-        "/ads/getAll?" + new URLSearchParams({ offset, count, userId, categoryId, manufacturerId, modelIds, searchQuery }), 
+        "/advertisements/getAll?" + new URLSearchParams({ offset, count, userId, categoryId, manufacturerId, modelIds, searchQuery }), 
         { method: 'GET', }
       );
 
@@ -29,14 +29,14 @@ export const useAdvertisementsStore = defineStore("advertisements", {
     },
     async getModer(offset = 0, count = 20) {
       let response = await apiRequest(
-        "/ads/getModer?" + new URLSearchParams({ offset, count }), 
+        "/advertisements/getModer?" + new URLSearchParams({ offset, count }), 
         { method: 'GET', }
       );
 
       this.moderAds = await response.json();
     },
     async editModer(id, moderStatus, moderReason = "") {
-      let response = await apiRequest("/ads/editModer", {
+      let response = await apiRequest("/advertisements/editModer", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -50,27 +50,23 @@ export const useAdvertisementsStore = defineStore("advertisements", {
     },
     async getExpert(offset = 0, count = 20) {
       let response = await apiRequest(
-        "/ads/getExpert?" + new URLSearchParams({ offset, count }), 
+        "/advertisements/getExpert?" + new URLSearchParams({ offset, count }), 
         { method: 'GET', }
       );
 
       this.expertAds = await response.json();
     },
     async editExpert(id, expertStatus, expertReview) {
-      let response = await apiRequest("/ads/editExpert", {
+      let response = await apiRequest("/advertisements/editExpert", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ id, expertStatus, expertReview }),
       })
-      
-      if (response.ok == true) {
-        // router.push({ name: 'personalModerAds' });
-      }
     },
     async requestReview(id) {
-      return await apiRequest("/ads/requestReview", {
+      return await apiRequest("/advertisements/requestReview", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +75,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
       })
     },
     async add(headline, description, price, categoryId, modelId, images) {
-      let response = await apiRequest("/ads/add", {
+      let response = await apiRequest("/advertisements/add", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -93,7 +89,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
       }
     },
     async edit(id, headline, description, price, categoryId, modelId, images) {
-      let response = await apiRequest("/ads/edit", {
+      let response = await apiRequest("/advertisements/edit", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +104,7 @@ export const useAdvertisementsStore = defineStore("advertisements", {
     },
     async remove(id) {
       await apiRequest(
-        "/ads/remove",
+        "/advertisements/remove",
         { 
           method: 'DELETE', 
           headers: {

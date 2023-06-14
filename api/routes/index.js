@@ -13,6 +13,7 @@ const advertisementController = require("../controllers/Advertisement");
 const categoryController = require("../controllers/Category");
 const manufacturerController = require("../controllers/Manufacturer");
 const instrumentModelController = require("../controllers/InstrumentModel");
+const messageController = require("../controllers/Message");
 
 const router = express.Router();
 
@@ -31,16 +32,16 @@ router.delete("/users/removeAdmin", [requiresAuth, requiresAdmin], userControlle
 router.post("/images/upload", requiresAuth, imageController.upload);
 
 // объявления
-router.post("/ads/add", requiresAuth, advertisementController.add);
-router.post("/ads/edit", requiresAuth, advertisementController.edit);
-router.get("/ads/getAll", advertisementController.getAll);
-router.get("/ads/getModer", [requiresAuth, requiresModer], advertisementController.getModer);
-router.post("/ads/editModer", [requiresAuth, requiresModer], advertisementController.editModer);
-router.get("/ads/getExpert", [requiresAuth, requiresExpert], advertisementController.getExpert);
-router.post("/ads/editExpert", [requiresAuth, requiresExpert], advertisementController.editExpert);
-router.post("/ads/requestReview", requiresAuth, advertisementController.requestReview);
-router.get("/ads/get", advertisementController.get);
-router.delete("/ads/remove", advertisementController.remove);
+router.post("/advertisements/add", requiresAuth, advertisementController.add);
+router.post("/advertisements/edit", requiresAuth, advertisementController.edit);
+router.get("/advertisements/getAll", advertisementController.getAll);
+router.get("/advertisements/getModer", [requiresAuth, requiresModer], advertisementController.getModer);
+router.post("/advertisements/editModer", [requiresAuth, requiresModer], advertisementController.editModer);
+router.get("/advertisements/getExpert", [requiresAuth, requiresExpert], advertisementController.getExpert);
+router.post("/advertisements/editExpert", [requiresAuth, requiresExpert], advertisementController.editExpert);
+router.post("/advertisements/requestReview", requiresAuth, advertisementController.requestReview);
+router.get("/advertisements/get", advertisementController.get);
+router.delete("/advertisements/remove", advertisementController.remove);
 
 // категории
 router.get("/category/getAll", categoryController.getAll);
@@ -58,6 +59,10 @@ router.delete("/manufacturer/remove", [requiresAuth, requiresAdmin], manufacture
 router.get("/model/getAll", instrumentModelController.getAll);
 router.post("/model/add", [requiresAuth, requiresAdmin], instrumentModelController.add);
 router.delete("/model/remove", [requiresAuth, requiresAdmin], instrumentModelController.remove);
+
+// сообщения
+router.post("/message/add", requiresAuth, messageController.add);
+router.get("/message/getAll", requiresAuth, messageController.getAll);
 
 router.all("*", (req, res) => {
   res.status(404).json({ error: 404 })
