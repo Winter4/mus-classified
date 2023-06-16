@@ -37,10 +37,10 @@
           <template v-else>
             <ul class="nav">
               <li class="nav-item">
-                <button type="button" class="btn btn-sm btn-dark me-2" data-bs-toggle="modal" data-bs-target="#modalAuth">Вход</button>
+                <button type="button" class="btn btn-sm btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#modalAuth">Вход</button>
               </li>
               <li class="nav-item">
-                <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#modalReg">Регистрация</button>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#modalReg">Регистрация</button>
               </li>
             </ul>
           </template>
