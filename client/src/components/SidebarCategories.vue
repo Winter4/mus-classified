@@ -2,8 +2,8 @@
   <div class="accordion mb-3" id="categoriesAccordion">
     <div class="accordion-item">
       <div class="accordion-header">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesAccordionBody" aria-expanded="true" aria-controls="categoriesAccordionBody">
-          <h5 class="card-title m-0">Категории</h5>
+        <button class="accordion-button bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesAccordionBody" aria-expanded="true" aria-controls="categoriesAccordionBody">
+          <h5 class="card-title m-0 text-white">Категории</h5>
         </button>
       </div>
       <div id="categoriesAccordionBody" class="accordion-collapse collapse show" data-bs-parent="#categoriesAccordion">

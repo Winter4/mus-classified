@@ -2,8 +2,8 @@
   <div class="accordion" id="manufacturersAccordion">
     <div class="accordion-item">
       <div class="accordion-header">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#manufacturersAccordionBody" aria-expanded="true" aria-controls="manufacturersAccordionBody">
-          <h5 class="card-title m-0">Модели</h5>
+        <button class="accordion-button bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#manufacturersAccordionBody" aria-expanded="true" aria-controls="manufacturersAccordionBody">
+          <h5 class="card-title m-0 text-white">Модели</h5>
         </button>
       </div>
       <div id="manufacturersAccordionBody" class="accordion-collapse collapse show" data-bs-parent="#manufacturersAccordion">
