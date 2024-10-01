@@ -7,7 +7,12 @@
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:seeder": "npx sequelize-cli seed:generate --name ",
     "db:seed": "npx sequelize-cli db:seed --seed ",
-    "dev": "nodemon app.js"
+    "db:sync": "node sequelize.sync.js",
+    "dev": "nodemon app.js",
+    "compose:up": "docker compose -f ./docker-compose.dev.yml up -d",
+    "compose:start": "docker compose -f ./docker-compose.dev.yml start",
+    "compose:stop": "docker compose -f ./docker-compose.dev.yml stop",
+    "compose:down": "docker compose -f ./docker-compose.dev.yml down --volumes"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

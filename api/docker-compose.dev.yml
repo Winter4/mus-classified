@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:9.0
+    container_name: "musclassified-mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root123"
+      MYSQL_DATABASE: "musclassified"
+      MYSQL_USER: "dev"
+      MYSQL_PASSWORD: "localpass"
+    volumes:
+      - musclassified-mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  adminer:
+    image: adminer
+    container_name: "musclassified-adminer"
+    ports:
+      - 3310:8080
+
+volumes:
+  musclassified-mysql:
+    driver: local
+    name: musclassified-mysql
