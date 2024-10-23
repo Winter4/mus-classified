@@ -3,6 +3,7 @@ version: "3.9"
 services:
   mysql:
     image: mysql:9.0
+    restart: always
     container_name: "musclassified-mysql"
     environment:
       MYSQL_ROOT_PASSWORD: "root123"
@@ -16,6 +17,7 @@ services:
 
   adminer:
     image: adminer
+    restart: always
     container_name: "musclassified-adminer"
     ports:
       - 3310:8080
