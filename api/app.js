@@ -1,4 +1,5 @@
 require("dotenv").config();
+const fs = require('fs');
 
 const express = require("express");
 require('express-async-errors');
@@ -13,6 +14,10 @@ app.use(fileUpload());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
+
+// create static folders
+if(!fs.existsSync('./upload_files')) fs.mkdirSync('./upload_files');
+if(!fs.existsSync('./upload_files/images')) fs.mkdirSync('./upload_files/images/')
 
 app.use("/api", router);
 
