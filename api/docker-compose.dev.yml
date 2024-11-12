@@ -6,10 +6,10 @@ services:
     restart: always
     container_name: "musclassified-mysql"
     environment:
-      MYSQL_ROOT_PASSWORD: "root123"
-      MYSQL_DATABASE: "musclassified"
-      MYSQL_USER: "dev"
-      MYSQL_PASSWORD: "localpass"
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: musclassified
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: localpass
     volumes:
       - musclassified-mysql:/var/lib/mysql
     ports:
