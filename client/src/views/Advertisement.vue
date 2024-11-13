@@ -39,7 +39,7 @@
             <template v-else>
             </template>
 
-          <div class="row d-flex mt-3">
+          <div class="row d-flex mt-3" v-if="advertisement?.Images?.length > 1">
 
             <div 
               v-for="image in advertisement.Images"
@@ -54,7 +54,12 @@
 
           </div>
         </div>
+        <h2 class="my-2">Описание: </h2>
+        <div class="card card-body description-card">
+          {{ advertisement.description }}
+        </div>
       </div>
+
       <div class="col-4">
         <ul v-if="advertisement?.User" class="list-group mb-3">
           <li class="list-group-item">
@@ -79,55 +84,73 @@
             <p class="card-text text-success">{{ advertisement.expertReview }}</p>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-8">
-        <div class="card card-body description-card">
-          {{ advertisement.description }}
+
+        <div class="bg-primary bg-opacity-25 p-2 rounded mt-3">
+          <h3 class="card-header border-success mb-3 bg-primary rounded p-2 d-flex justify-content-between text-white align-items-center">Популярное в комплекте <i class="fa-solid fa-star me-2"></i></h3>
+          <div class="card-body" v-if="accessories.length > 0">
+            <div v-for="accessory in accessories" :key="accessory.id" class="card mb-3">
+              <h4 class="card-header">{{accessory.name}}</h4>
+              <img :src="`/mocks/${accessory.image}`" class="card-img-top" alt="Изображение товара">
+              <div class="card-body">
+                <p class="card-text">{{accessory.description}}</p>
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  Продавец: {{accessory.contact.name}}
+                </p>
+                <p class="d-flex justify-content-between">
+                  <button class="btn btn-primary d-flex align-items-center" @click.once="clickAlert('mail', accessory.id)">Написать <i class="fa-solid fa-envelope ms-2"/></button>
+                  <button class="btn btn-primary d-flex align-items-center" @click.once="clickAlert('phone', accessory.id)">Позвонить <i class="fa-solid fa-phone ms-2"/></button>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import AdvertisementPageButtons from "@/components/AdvertisementPageButtons.vue";
 import { useUserStore } from "@/stores/user";
 import { useAdvertisementsStore } from "@/stores/advertisements";
 import adModerStatus from "@/helpers/adModerStatus";
 import adExpertStatus from "@/helpers/adExpertStatus";
+import {computed, onBeforeMount, onMounted, ref} from "vue";
+import accessoriesJSON from "@/mocks/accessories.json"
 
-export default {
-  props: ['id'],
-  components: {
-    AdvertisementPageButtons,
-  },
-  setup() {
-    const userStore = useUserStore();
-    let advertisementsStore = useAdvertisementsStore();
+const props = defineProps(['id']);
+const userStore = useUserStore();
+const advertisementsStore = useAdvertisementsStore();
 
-    return { 
-      userStore,
-      advertisementsStore,
-      adModerStatus,
-      adExpertStatus,
-      imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
-    }
-  },
-  data() {
-    return {
-    }
-  },
-  computed: {
-    advertisement() {
-      return this.advertisementsStore.ad;
-    },
-  },
-  created() {
-    this.advertisementsStore.get(this.id)
-  },
+const accessories = ref([])
+
+const imageBaseUrl = `${import.meta.env.VITE_API_URL}/upload/images/`;
+const advertisement = computed(() => advertisementsStore.ad);
+
+const clickAlert = (type, id) => {
+  if (type === 'mail'){
+    alert(`Почта продавца: ${accessories[id - 1].contact.email}`);
+
+  }
+  else {
+    alert(`Телефон продавца: ${accessories[id - 1].contact.phone}`);
+  }
 }
+
+onBeforeMount(async ()=> {
+  await advertisementsStore.get(props.id);
+  if (advertisement.value.headline.toLowerCase().includes('гитара')){
+    accessories.value = accessoriesJSON.filter(item => item.for === 'ac_guitar')
+  }
+  else if (advertisement.value.headline.toLowerCase().includes('электрогитара')){
+    accessories.value = accessoriesJSON.filter(item => item.for === 'el_guitar')
+  }
+  else if (advertisement.value.headline.toLowerCase().includes('барабаны')){
+    accessories.value = accessoriesJSON.filter(item => item.for === 'drums')
+  }
+})
 </script>
 
 <style scoped>
@@ -135,9 +158,11 @@ export default {
   height: 60vh;
 }
 .image-slide {
-  height: 100%;
   display: block;
-  margin: 0 auto;
+  margin: auto;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }
 .card-image {
   background-repeat: no-repeat;
@@ -150,5 +175,10 @@ export default {
 }
 .description-card {
   min-height: 200px;
+}
+
+.card-img-top{
+  object-fit: contain;
+  height: 166px;
 }
 </style>

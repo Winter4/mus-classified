@@ -1,0 +1,119 @@
+[
+    {
+        "id": 1,
+        "for": "ac_guitar",
+        "name": "Набор медиаторов",
+        "description": "Набор медиаторов для комфортной игры на гитаре, защитят ваши пальцы от струн",
+        "price": 699,
+        "image":"mediators.jpg",
+        "contact": {
+            "phone": "+7 (999) 999-99-99",
+            "email": "info@example.com",
+            "name": "Игорь Агарков"
+        }
+    },
+    {
+        "id": 2,
+        "for": "ac_guitar",
+        "name": "Чехол для гитары",
+        "description": "Ударопрочный кейс для гитары",
+        "price": 19499,
+        "image": "case.webp",
+        "contact": {
+            "phone": "+7 (999) 999-99-99",
+            "email": "info@example.com",
+            "name": "Игорь Агарков"
+        }
+    },
+    {
+        "id": 3,
+        "for": "ac_guitar",
+        "name": "Учебный инструмент",
+        "description": "Подходит для новичков, позволяет брать самые простые аккорды просто нажимая на кнопки",
+        "price": 499,
+        "image": "Chord_Buddy.jpg",
+        "contact": {
+            "phone": "+7 (999) 999-99-99",
+            "email": "info@example.com",
+            "name": "Игорь Агарков"
+        }
+    },
+    {
+        "id": 4,
+        "for": "el_guitar",
+        "name": "Кабель для гитары",
+        "description": "Инструментальный кабель для электрогитары длиной 3 метра с прочными коннекторами.",
+        "price": 599,
+        "image": "guitar_cable.jpg",
+        "contact": {
+            "phone": "+7 (999) 999-99-99",
+            "email": "info@example.com",
+            "name": "Игорь Агарков"
+        }
+    },
+    {
+        "id": 5,
+        "for": "el_guitar",
+        "name": "Педаль эффекта дисторшн",
+        "description": "Педаль эффекта дисторшн для мощного, насыщенного звука электрогитары.",
+        "price": 4999,
+        "image": "distortion_pedal.jpg",
+        "contact": {
+            "phone": "+7 (999) 999-99-99",
+            "email": "info@example.com",
+            "name": "Игорь Агарков"
+        }
+    },
+    {
+        "id": 6,
+        "for": "el_guitar",
+        "name": "Настройщик для гитары",
+        "description": "Компактный и точный настройщик для электрогитары с LED дисплеем.",
+        "price": 1299,
+        "image": "guitar_tuner.webp",
+        "contact": {
+            "phone": "+7 (999) 999-99-99",
+            "email": "info@example.com",
+            "name": "Игорь Агарков"
+        }
+    },
+    {
+        "id": 7,
+        "for": "drums",
+        "name": "Барабанные палочки",
+        "description": "Комплект палочек из хикори для долговечной и комфортной игры на барабанах.",
+        "price": 499,
+        "image": "drum_sticks.jpeg",
+        "contact": {
+            "phone": "+7 (999) 999-99-99",
+            "email": "info@example.com",
+            "name": "Игорь Агарков"
+        }
+    },
+    {
+        "id": 8,
+        "for": "drums",
+        "name": "Глушители для барабанов",
+        "description": "Набор резиновых глушителей для барабанов, идеально подходит для тихих репетиций.",
+        "price": 999,
+        "image": "drum_mutes.webp",
+        "contact": {
+            "phone": "+7 (999) 999-99-99",
+            "email": "info@example.com",
+            "name": "Игорь Агарков"
+        }
+    },
+    {
+        "id": 9,
+        "for": "drums",
+        "name": "Барабанный чехол",
+        "description": "Водонепроницаемый чехол для барабанов, обеспечивает защиту при транспортировке.",
+        "price": 5999,
+        "image": "drum_case.jpg",
+        "contact": {
+            "phone": "+7 (999) 999-99-99",
+            "email": "info@example.com",
+            "name": "Игорь Агарков"
+        }
+    }
+]
