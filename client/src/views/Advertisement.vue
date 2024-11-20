@@ -39,7 +39,7 @@
             <template v-else>
             </template>
 
-          <div class="row d-flex mt-3">
+          <div class="row d-flex mt-3" v-if="advertisement?.Images?.length > 1">
 
             <div 
               v-for="image in advertisement.Images"
@@ -52,6 +52,13 @@
               </div>
             </div>
 
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card card-body description-card">
+              {{ advertisement.description }}
+            </div>
           </div>
         </div>
       </div>
@@ -79,55 +86,81 @@
             <p class="card-text text-success">{{ advertisement.expertReview }}</p>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-8">
-        <div class="card card-body description-card">
-          {{ advertisement.description }}
+
+        <div class="bg-primary bg-opacity-25 p-2 rounded mt-3">
+          <h3 class="card-header border-success mb-3 bg-primary rounded p-2 d-flex justify-content-between text-white ali gn-items-center">
+            Рейтинг товара:
+            <div class="d-flex align-items-center gap-2">
+              {{rating}}
+              <i class="fa-solid fa-star me-2" />
+            </div>
+          </h3>
+          <div class="card-body">
+            <div v-for="review in reviews" :key="review.id" class="card mb-3">
+              <h4 class="card-header">{{review.name}}</h4>
+              <div class="card-body">
+                <p class="card-text">{{review.description}}</p>
+              </div>
+              <div class="card-body">
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import AdvertisementPageButtons from "@/components/AdvertisementPageButtons.vue";
+<script setup>
 import { useUserStore } from "@/stores/user";
 import { useAdvertisementsStore } from "@/stores/advertisements";
-import adModerStatus from "@/helpers/adModerStatus";
+import {computed, onBeforeMount, ref} from "vue";
 import adExpertStatus from "@/helpers/adExpertStatus";
+import adModerStatus from "@/helpers/adModerStatus";
+import AdvertisementPageButtons from "@/components/AdvertisementPageButtons.vue";
+import mock_reviews from "@/mocks/reviews.json";
 
-export default {
-  props: ['id'],
-  components: {
-    AdvertisementPageButtons,
+// Определение пропсов
+const props = defineProps({
+  id: {
+    type: [String, Number],
+    required: true,
   },
-  setup() {
-    const userStore = useUserStore();
-    let advertisementsStore = useAdvertisementsStore();
+  rating: {
+    type: [String, Number],
+    required: true,
+  }
+});
 
-    return { 
-      userStore,
-      advertisementsStore,
-      adModerStatus,
-      adExpertStatus,
-      imageBaseUrl: `${import.meta.env.VITE_API_URL}/upload/images/`,
-    }
-  },
-  data() {
-    return {
-    }
-  },
-  computed: {
-    advertisement() {
-      return this.advertisementsStore.ad;
-    },
-  },
-  created() {
-    this.advertisementsStore.get(this.id)
-  },
-}
+// Использование стора
+const userStore = useUserStore();
+const advertisementsStore = useAdvertisementsStore();
+
+const reviews = ref([]);
+
+// Базовый URL для изображений
+const imageBaseUrl = `${import.meta.env.VITE_API_URL}/upload/images/`;
+
+// Компьютед свойство для объявления
+const advertisement = computed(() => advertisementsStore.ad);
+
+// Метод, который будет вызываться при монтировании компонента
+onBeforeMount(async () => {
+  await advertisementsStore.get(props.id);
+
+  console.log(props.rating)
+
+  if (advertisement.value.headline.toLowerCase().includes('гитара')){
+    reviews.value = mock_reviews.filter(review => (review.for === 'ac_guitar' && review.rating == props.rating));
+  }
+  else if (advertisement.value.headline.toLowerCase().includes('электрогитара')){
+    reviews.value = mock_reviews.filter(review => (review.for === 'el_guitar' && review.rating == props.rating))
+  }
+  else if (advertisement.value.headline.toLowerCase().includes('барабаны')){
+    reviews.value = mock_reviews.filter(review => (review.for === 'drums' && review.rating == props.rating))
+  }
+});
 </script>
 
 <style scoped>
@@ -138,6 +171,9 @@ export default {
   height: 100%;
   display: block;
   margin: 0 auto;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }
 .card-image {
   background-repeat: no-repeat;

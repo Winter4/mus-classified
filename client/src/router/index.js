@@ -26,7 +26,7 @@ const routes = [
         }
       },
       {
-        path: '/advertisement/:id',
+        path: '/advertisement/:id/:rating',
         name: 'advertisement',
         component: () => import('@/views/Advertisement.vue'), 
         props: true,
