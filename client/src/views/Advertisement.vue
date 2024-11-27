@@ -141,13 +141,14 @@ const clickAlert = (type, id) => {
 
 onBeforeMount(async ()=> {
   await advertisementsStore.get(props.id);
-  if (advertisement.value.headline.toLowerCase().includes('гитара')){
+  console.log(advertisement.value)
+  if (advertisement.value.categoryId == 4){
     accessories.value = accessoriesJSON.filter(item => item.for === 'ac_guitar')
   }
-  else if (advertisement.value.headline.toLowerCase().includes('электрогитара')){
+  else if (advertisement.value.categoryId == 1){
     accessories.value = accessoriesJSON.filter(item => item.for === 'el_guitar')
   }
-  else if (advertisement.value.headline.toLowerCase().includes('барабаны')){
+  else if (advertisement.value.categoryId == 2){
     accessories.value = accessoriesJSON.filter(item => item.for === 'drums')
   }
 })
