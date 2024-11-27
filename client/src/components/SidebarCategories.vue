@@ -11,10 +11,13 @@
           <ul class="list-group list-group-flush"> 
             <RouterLink 
               v-for="item in categories"
+              :key="item.id"
               :to="{ name: 'category', params: { id: item.id } }" 
-              class="list-group-item list-group-item-action"
+              class="list-group-item list-group-item-action text-center"
+              :class="['Электрогитары', 'Бас-гитары'].includes(item.name)? 'text-primary' : ''"
             >
               {{ item.name }}
+              <i v-if="['Электрогитары', 'Бас-гитары'].includes(item.name)" class="fa-solid fa-star me-2"></i>
             </RouterLink>
           </ul>
         </div>
@@ -23,26 +26,21 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useCategoriesStore } from "@/stores/categories";
+import {computed} from "vue";
+import {useRoute} from "vue-router";
 
-export default {
-  setup() {
-    let сategoriesStore = useCategoriesStore();
-    сategoriesStore.getAll();
+const route = useRoute();
 
-    return { 
-      сategoriesStore,
-    }
-  },
-  data() {
-    return {
-    }
-  },
-  computed: {
-    categories() {
-      return this.сategoriesStore.categories;
-    },
-  }
-}
+const categoriesStore = useCategoriesStore();
+categoriesStore.getAll();
+
+const categories = computed(() => categoriesStore.categories);
 </script>
+
+<style>
+.active {
+  color: white !important;
+}
+</style>

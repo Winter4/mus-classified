@@ -2,7 +2,7 @@
   <header class="p-3 mb-3 border-bottom bg-primary">
     <div class="container-lg">
       <div class="d-flex align-items-center justify-content-between">
-        <div class="col-4">
+        <div class="col-2">
           <RouterLink :to="{ name: 'main' }" class="text-white text-decoration-none fs-4">
             <i class="fa-solid fa-music me-2"></i>
             <i class="fa-solid fa-microphone me-2"></i>
@@ -12,8 +12,17 @@
             <i class="fa-solid fa-compact-disc"></i>
           </RouterLink>
         </div>
+        <div  v-for="item in categories.filter(item => ['Электрогитары', 'Бас-гитары'].includes(item.name))" class="col-1 me-3">
+          <RouterLink
+              :to="{ name: 'category', params: { id: item.id } }"
+              class="text-center text-white fw-bold"
+              :class="[['Электрогитары', 'Бас-гитары'].includes(item.name)? '' : '']"
+          >
+            {{ item.name }}
+          </RouterLink>
+        </div>
 
-        <div class="col-4 d-flex align-items-center justify-content-center">
+        <div class="col-2 d-flex align-items-center justify-content-center">
           <RouterLink :to="{ name: 'main' }" class="text-white text-decoration-none">
             <span class="fs-2 fw-bold fst-italic">Трунь!</span>
           </RouterLink>
@@ -57,25 +66,19 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { RouterLink } from 'vue-router';
-
 import TheHeaderModalAuth from '@/components/TheHeaderModalAuth.vue';
 import TheHeaderModalReg from '@/components/TheHeaderModalReg.vue';
 
 import { useUserStore } from "@/stores/user";
+import {useCategoriesStore} from "@/stores/categories";
+import {computed} from "vue";
 
-export default {
-  components: {
-    RouterLink,
-    TheHeaderModalAuth,
-    TheHeaderModalReg,
-  },
-  setup() {
-    const userStore = useUserStore();
-    return { 
-      userStore 
-    };
-  }
-}
+const userStore = useUserStore();
+
+const categoriesStore = useCategoriesStore();
+categoriesStore.getAll();
+
+const categories = computed(() => categoriesStore.categories);
 </script>
