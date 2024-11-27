@@ -149,15 +149,15 @@ const advertisement = computed(() => advertisementsStore.ad);
 onBeforeMount(async () => {
   await advertisementsStore.get(props.id);
 
-  console.log(props.rating)
+  console.log(advertisement.value.categoryId)
 
-  if (advertisement.value.headline.toLowerCase().includes('гитара')){
+  if (advertisement.value.categoryId == 4){
     reviews.value = mock_reviews.filter(review => (review.for === 'ac_guitar' && review.rating == props.rating));
   }
-  else if (advertisement.value.headline.toLowerCase().includes('электрогитара')){
+  else if (advertisement.value.categoryId == 1){
     reviews.value = mock_reviews.filter(review => (review.for === 'el_guitar' && review.rating == props.rating))
   }
-  else if (advertisement.value.headline.toLowerCase().includes('барабаны')){
+  else if (advertisement.value.categoryId == 2){
     reviews.value = mock_reviews.filter(review => (review.for === 'drums' && review.rating == props.rating))
   }
 });
