@@ -1,6 +1,6 @@
 <template>
   <div class="col-4 mb-4" v-for="ad in specialAds" :key="ad.id">
-    <Advertisement :ad />
+    <Advertisement :ad="ad" />
   </div>
 </template>
 
