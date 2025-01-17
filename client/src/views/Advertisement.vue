@@ -145,9 +145,11 @@ onBeforeMount(async ()=> {
   while (accessories.value[0] === accessories.value[1]) {
     accessories.value[0] = Math.floor(Math.random()*10 + 1)
   }
+  const items = [];
   for (let item of accessories.value) {
-    item = advertisementsStore.ads[item - 1]
+    items.push(advertisementsStore.ads[item - 1]);
   }
+  accessories.value = items;
   await advertisementsStore.get(props.id);
 })
 </script>
