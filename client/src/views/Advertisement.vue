@@ -89,20 +89,6 @@
           <h3 class="card-header border-success mb-3 bg-primary rounded p-2 d-flex justify-content-between text-white align-items-center">Популярное в комплекте <i class="fa-solid fa-star me-2"></i></h3>
           <div class="card-body" v-if="accessories.length > 0">
             <div v-for="item in accessories" class="card mb-3">
-<!--              <h4 class="card-header">{{accessory.name}}</h4>-->
-<!--              <img :src="`/mocks/${accessory.image}`" class="card-img-top" alt="Изображение товара">-->
-<!--              <div class="card-body">-->
-<!--                <p class="card-text">{{accessory.description}}</p>-->
-<!--              </div>-->
-<!--              <div class="card-body">-->
-<!--                <p class="card-text">-->
-<!--                  Продавец: {{accessory.contact.name}}-->
-<!--                </p>-->
-<!--                <p class="d-flex justify-content-between">-->
-<!--                  <button class="btn btn-primary d-flex align-items-center" @click.once="clickAlert('mail', accessory.id)">Написать <i class="fa-solid fa-envelope ms-2"/></button>-->
-<!--                  <button class="btn btn-primary d-flex align-items-center" @click.once="clickAlert('phone', accessory.id)">Позвонить <i class="fa-solid fa-phone ms-2"/></button>-->
-<!--                </p>-->
-<!--              </div>-->
               <Advertisement :ad="item"/>
             </div>
           </div>
@@ -129,16 +115,6 @@ const accessories = ref([])
 
 const imageBaseUrl = `${import.meta.env.VITE_API_URL}/upload/images/`;
 const advertisement = computed(() => advertisementsStore.ad);
-
-// const clickAlert = (type, id) => {
-//   if (type === 'mail'){
-//     alert(`Почта продавца: ${accessories[id - 1].contact.email}`);
-//
-//   }
-//   else {
-//     alert(`Телефон продавца: ${accessories[id - 1].contact.phone}`);
-//   }
-// }
 
 onBeforeMount(async ()=> {
   accessories.value = [Math.floor(Math.random()*10 + 1), Math.floor(Math.random()*10 + 1)];
