@@ -51,6 +51,7 @@
 
 <script>
 import { useMessageStore } from "@/stores/message";
+import
 
 export default {
   props: ["userId"],
@@ -75,6 +76,7 @@ export default {
   },
   methods: {
     async sendMessage() {
+      ym(98709910, "reachGoal", "hypothesis3");
       if (this.userId) {
         await this.messageStore.add(this.userId, this.message);
         this.message = "";
