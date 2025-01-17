@@ -51,7 +51,6 @@
 
 <script>
 import { useMessageStore } from "@/stores/message";
-import
 
 export default {
   props: ["userId"],
