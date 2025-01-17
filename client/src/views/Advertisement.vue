@@ -120,7 +120,6 @@ import { useAdvertisementsStore } from "@/stores/advertisements";
 import adModerStatus from "@/helpers/adModerStatus";
 import adExpertStatus from "@/helpers/adExpertStatus";
 import {computed, onBeforeMount, onMounted, ref} from "vue";
-import accessoriesJSON from "@/mocks/accessories.json"
 
 const props = defineProps(['id']);
 const userStore = useUserStore();
@@ -131,24 +130,24 @@ const accessories = ref([])
 const imageBaseUrl = `${import.meta.env.VITE_API_URL}/upload/images/`;
 const advertisement = computed(() => advertisementsStore.ad);
 
-const clickAlert = (type, id) => {
-  if (type === 'mail'){
-    alert(`Почта продавца: ${accessories[id - 1].contact.email}`);
-
-  }
-  else {
-    alert(`Телефон продавца: ${accessories[id - 1].contact.phone}`);
-  }
-}
+// const clickAlert = (type, id) => {
+//   if (type === 'mail'){
+//     alert(`Почта продавца: ${accessories[id - 1].contact.email}`);
+//
+//   }
+//   else {
+//     alert(`Телефон продавца: ${accessories[id - 1].contact.phone}`);
+//   }
+// }
 
 onBeforeMount(async ()=> {
-  accessories.value = [Math.random()*10 + 1, Math.random()*10 + 1];
+  accessories.value = [Math.floor(Math.random()*10 + 1), Math.floor(Math.random()*10 + 1)];
   while (accessories.value[0] === accessories.value[1]) {
-    accessories.value[0] = Math.random()*10 + 1
+    accessories.value[0] = Math.floor(Math.random()*10 + 1)
   }
-  accessories.value.forEach(item => {
-    item = advertisementsStore.get(item)
-  })
+  for (let item of accessories.value) {
+    item = await advertisementsStore.get(item)
+  }
   await advertisementsStore.get(props.id);
 })
 </script>
