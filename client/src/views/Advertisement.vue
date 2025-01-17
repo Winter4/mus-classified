@@ -88,21 +88,22 @@
         <div class="bg-primary bg-opacity-25 p-2 rounded mt-3">
           <h3 class="card-header border-success mb-3 bg-primary rounded p-2 d-flex justify-content-between text-white align-items-center">Популярное в комплекте <i class="fa-solid fa-star me-2"></i></h3>
           <div class="card-body" v-if="accessories.length > 0">
-            <div v-for="accessory in accessories" :key="accessory.id" class="card mb-3">
-              <h4 class="card-header">{{accessory.name}}</h4>
-              <img :src="`/mocks/${accessory.image}`" class="card-img-top" alt="Изображение товара">
-              <div class="card-body">
-                <p class="card-text">{{accessory.description}}</p>
-              </div>
-              <div class="card-body">
-                <p class="card-text">
-                  Продавец: {{accessory.contact.name}}
-                </p>
-                <p class="d-flex justify-content-between">
-                  <button class="btn btn-primary d-flex align-items-center" @click.once="clickAlert('mail', accessory.id)">Написать <i class="fa-solid fa-envelope ms-2"/></button>
-                  <button class="btn btn-primary d-flex align-items-center" @click.once="clickAlert('phone', accessory.id)">Позвонить <i class="fa-solid fa-phone ms-2"/></button>
-                </p>
-              </div>
+            <div v-for="item in accessories" class="card mb-3">
+<!--              <h4 class="card-header">{{accessory.name}}</h4>-->
+<!--              <img :src="`/mocks/${accessory.image}`" class="card-img-top" alt="Изображение товара">-->
+<!--              <div class="card-body">-->
+<!--                <p class="card-text">{{accessory.description}}</p>-->
+<!--              </div>-->
+<!--              <div class="card-body">-->
+<!--                <p class="card-text">-->
+<!--                  Продавец: {{accessory.contact.name}}-->
+<!--                </p>-->
+<!--                <p class="d-flex justify-content-between">-->
+<!--                  <button class="btn btn-primary d-flex align-items-center" @click.once="clickAlert('mail', accessory.id)">Написать <i class="fa-solid fa-envelope ms-2"/></button>-->
+<!--                  <button class="btn btn-primary d-flex align-items-center" @click.once="clickAlert('phone', accessory.id)">Позвонить <i class="fa-solid fa-phone ms-2"/></button>-->
+<!--                </p>-->
+<!--              </div>-->
+              <Advertisement :ad="item"/>
             </div>
           </div>
         </div>
@@ -113,6 +114,7 @@
 
 <script setup>
 import AdvertisementPageButtons from "@/components/AdvertisementPageButtons.vue";
+import Advertisement from "@/components/Advertisement.vue";
 import { useUserStore } from "@/stores/user";
 import { useAdvertisementsStore } from "@/stores/advertisements";
 import adModerStatus from "@/helpers/adModerStatus";
@@ -140,17 +142,14 @@ const clickAlert = (type, id) => {
 }
 
 onBeforeMount(async ()=> {
+  accessories.value = [Math.random()*10 + 1, Math.random()*10 + 1];
+  while (accessories.value[0] === accessories.value[1]) {
+    accessories.value[0] = Math.random()*10 + 1
+  }
+  accessories.value.forEach(item => {
+    item = advertisementsStore.get(item)
+  })
   await advertisementsStore.get(props.id);
-  console.log(advertisement.value)
-  if (advertisement.value.categoryId == 4){
-    accessories.value = accessoriesJSON.filter(item => item.for === 'ac_guitar')
-  }
-  else if (advertisement.value.categoryId == 1){
-    accessories.value = accessoriesJSON.filter(item => item.for === 'el_guitar')
-  }
-  else if (advertisement.value.categoryId == 2){
-    accessories.value = accessoriesJSON.filter(item => item.for === 'drums')
-  }
 })
 </script>
 
