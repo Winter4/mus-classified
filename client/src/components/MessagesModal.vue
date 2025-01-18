@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     async sendMessage() {
-      window.ym(98709910, "reachGoal", " hypothesis5");
+      window.ym(98709910, "reachGoal", "hypothesis5");
       await this.messageStore.add(this.userId, this.message);
       this.message = "";
       this.messageStore.getAll(this.userId);
